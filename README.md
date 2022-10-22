@@ -16,7 +16,7 @@ ng add @ngrx/store@latest
 ng add @angular/material
 ~~~
 ~~~
-ng add @angular/material
+ng s -o
 ~~~
 
 
