@@ -5,7 +5,11 @@
   "projects": {
     "gestion_hospital": {
       "projectType": "application",
-      "schematics": {},
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "sass"
+        }
+      },
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
@@ -18,13 +22,14 @@
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
+            "inlineStyleLanguage": "sass",
             "assets": [
               "src/favicon.ico",
               "src/assets"
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
-              "src/styles.css"
+              "src/styles.sass"
             ],
             "scripts": []
           },
@@ -86,13 +91,14 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
+            "inlineStyleLanguage": "sass",
             "assets": [
               "src/favicon.ico",
               "src/assets"
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
-              "src/styles.css"
+              "src/styles.sass"
             ],
             "scripts": []
           }
@@ -101,6 +107,6 @@
     }
   },
   "cli": {
-    "analytics": "075282c8-142e-40ce-969e-53dcbaa4b295"
+    "analytics": "acc07b89-a678-4774-8867-023c4bf6134c"
   }
 }
