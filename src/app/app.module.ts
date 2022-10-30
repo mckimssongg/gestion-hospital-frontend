@@ -25,12 +25,8 @@ import { LoginComponent } from './components/login/login.component';
     AppRoutingModule,
     BrowserAnimationsModule,
     StoreModule.forRoot({}, {}),
-<<<<<<< Updated upstream
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
-=======
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     BrowserAnimationsModule,
-
->>>>>>> Stashed changes
   ],
   providers: [],
   bootstrap: [AppComponent]
