@@ -8,22 +8,24 @@ import { LaboratoriosComponent } from './laboratorios/laboratorios.component';
 import { MedicosComponent } from './medicos/medicos.component';
 import { PacientesComponent } from './pacientes/pacientes.component';
 
-const routes: Routes = 
-[
-  //para mostrar el HTML del tablero(dashboard)
-  {path: "", component: DashboardComponent, children:
-    [
-      {path: "", component: InicioComponent},
-      {path: "medicos", component: MedicosComponent},
-      {path: "pacientes", component: PacientesComponent},
-      {path: "laboratorios", component: LaboratoriosComponent},
-      {path: "especialidades", component: EspecialidadesComponent},
-      {path: "consultas", component: ConsultasComponent}
-    ]}
- ];
+const routes: Routes = [
+  //Vistas de la aplicacion
+  {
+    path: '',
+    component: DashboardComponent,
+    children: [
+      { path: '', component: InicioComponent },
+      { path: 'medicos', component: MedicosComponent },
+      { path: 'pacientes', component: PacientesComponent },
+      { path: 'laboratorios', component: LaboratoriosComponent },
+      { path: 'especialidades', component: EspecialidadesComponent },
+      { path: 'consultas', component: ConsultasComponent },
+    ],
+  },
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class DashboardRoutingModule { }
+export class DashboardRoutingModule {}
