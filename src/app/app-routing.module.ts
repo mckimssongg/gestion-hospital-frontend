@@ -4,7 +4,10 @@ import { LoginComponent } from './components/login/login.component';
 
 const routes: Routes = 
 [
-  {path: 'loading', component: LoginComponent}
+  {path: "", redirectTo: "login", pathMatch: "full"},//automaticamente redicrecciona al login
+  {path: 'login', component: LoginComponent},
+  {path: "dashboard", loadChildren: () => import("./components/dashboard/dashboard.module").then(x => x.DashboardModule)},//para cargar el tablero (carga perezosa (trae algunos componentes))
+  {path:"**", redirectTo: "login", pathMatch: "full"}
 ];
 
 @NgModule({

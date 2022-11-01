@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { timeout } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +12,7 @@ export class LoginComponent implements OnInit {
   formulario: FormGroup;
   loading=false; //iniciar seción, si la contraseña es valida muestra el spinner
 
-  constructor(private fb: FormBuilder, private _snackBar: MatSnackBar)
+  constructor(private fb: FormBuilder, private _snackBar: MatSnackBar, private router: Router)
   {
     this.formulario=this.fb.group
     ({
@@ -54,8 +54,7 @@ export class LoginComponent implements OnInit {
   {
     this.loading=true;
     setTimeout(() => {
-      //redireccionar al dashboard
-      this.loading=false;
+      this.router.navigate(["dashboard"]);
     }, 1500);
   }
 }
