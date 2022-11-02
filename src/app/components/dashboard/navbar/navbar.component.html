@@ -2,11 +2,8 @@
     <mat-icon>medical_information</mat-icon>
     <span>Hospital Los Ángeles</span>
     <span class="posicion_botones"></span>
-    <button mat-button routerLink="/dashboard/medicos">Médicos</button>
-    <button mat-button routerLink="/dashboard/pacientes">Pacientes</button>
-    <button mat-button routerLink="/dashboard/laboratorios">Laboratorios</button>
-    <button mat-button routerLink="/dashboard/especialidades">Especialistas</button>
-    <button mat-button routerLink="/dashboard/consultas">Consultas</button>
+    <!--Interactivo sub grupos-->
+    <button mat-button *ngFor="let item of menu" [routerLink]="item.redirect">{{item.nombre}}</button>
     <span class="posicion_botones"></span>
-    <mat-icon>logout</mat-icon>
+    <mat-icon routerLink="/logout">logout</mat-icon>
 </mat-toolbar>

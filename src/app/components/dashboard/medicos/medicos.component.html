@@ -1,2 +1,38 @@
-<p>medicos works!</p>
-<button class="btn btn-primary">Hola</button>
+<div class="toolbar_formato">
+    <mat-toolbar>
+        <span>Médicos</span>
+    </mat-toolbar>
+    
+    <table mat-table [dataSource]="dataSource" class="table">
+
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef> ID </th>
+          <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+        </ng-container>
+      
+        <ng-container matColumnDef="cmp">
+          <th mat-header-cell *matHeaderCellDef> CMP </th>
+          <td mat-cell *matCellDef="let element"> {{element.cmp}} </td>
+        </ng-container>
+      
+        <ng-container matColumnDef="apellidos">
+          <th mat-header-cell *matHeaderCellDef> Apellidos </th>
+          <td mat-cell *matCellDef="let element"> {{element.apellidos}} </td>
+        </ng-container>
+      
+        <ng-container matColumnDef="nombres">
+          <th mat-header-cell *matHeaderCellDef> Nombres </th>
+          <td mat-cell *matCellDef="let element"> {{element.nombres}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="foto">
+            <th mat-header-cell *matHeaderCellDef> Foto URL </th>
+            <td mat-cell *matCellDef="let element"> {{element.foto}} </td>
+          </ng-container>
+          
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+      
+      
+</div>
