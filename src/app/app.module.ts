@@ -10,10 +10,10 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 
 //donde estan todos los modulos de angular material
-import { SharedModule } from './components/shared/shared.module';
+import { SharedModule } from './modules/shared/shared.module';
 
 //INICIAR SECIÓN
-import { LoginComponent } from './components/login/login.component';
+import { LoginComponent } from './modules/login/login.component';
 
 @NgModule({
   declarations: [AppComponent, LoginComponent],
