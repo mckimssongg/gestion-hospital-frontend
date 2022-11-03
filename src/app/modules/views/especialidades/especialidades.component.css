@@ -1,0 +1,11 @@
+.toolbar_formato {
+  flex: 1 1 auto;
+}
+.table {
+width: 100%;
+margin-top: 10px;
+}
+.button
+{
+  width: 50%;
+}

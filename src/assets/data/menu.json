@@ -1,0 +1,22 @@
+[
+    {
+        "nombre": "Médicos",
+        "redirect": "/inicio/medicos"
+    },
+    {
+        "nombre": "Pacientes",
+        "redirect": "/inicio/pacientes"
+    },
+    {
+        "nombre": "Laboratorios",
+        "redirect": "/inicio/laboratorios"
+    },
+    {
+        "nombre": "Especialidades",
+        "redirect": "/inicio/especialidades"
+    },
+    {
+        "nombre": "Consultas",
+        "redirect": "/inicio/consultas"
+    }
+]
