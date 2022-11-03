@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './components/login/login.component';
+import { LoginComponent } from './modules/login/login.component';
 
 const routes: Routes = [
   //automaticamente redicrecciona al login
@@ -8,11 +8,9 @@ const routes: Routes = [
 
   //Para la carga de las vistas
   {
-    path: 'dashboard',
+    path: 'inicio',
     loadChildren: () =>
-      import('./components/dashboard/dashboard.module').then(
-        (x) => x.DashboardModule
-      ),
+      import('./modules/views/dashboard.module').then((x) => x.DashboardModule),
   },
 
   // Si no hace match con ninguna ruta, redirecciona al login

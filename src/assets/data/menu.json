@@ -1,22 +1,22 @@
 [
     {
         "nombre": "Médicos",
-        "redirect": "/dashboard/medicos"
+        "redirect": "/inicio/medicos"
     },
     {
         "nombre": "Pacientes",
-        "redirect": "/dashboard/pacientes"
+        "redirect": "/inicio/pacientes"
     },
     {
         "nombre": "Laboratorios",
-        "redirect": "/dashboard/laboratorios"
+        "redirect": "/inicio/laboratorios"
     },
     {
         "nombre": "Especialidades",
-        "redirect": "/dashboard/especialidades"
+        "redirect": "/inicio/especialidades"
     },
     {
         "nombre": "Consultas",
-        "redirect": "/dashboard/consultas"
+        "redirect": "/inicio/consultas"
     }
 ]
