@@ -1,18 +1,5 @@
-<div class="toolbar_formato">
-    <!--Titulo de vista -->
-    <mat-toolbar>
-      <span>Especialidades</span>    
-    </mat-toolbar>  
-    <!--Botones para redireccionar-->
-    <mat-toolbar color="primary">
-      <button class="button" mat-button routerLink="/dashboard/especialidades/registrar">Registrar</button>
-      <button class="button" mat-button >Ver Lista</button>  
-    </mat-toolbar>
-    <!--Tabla(para mientras)-->
-    <br>
-    <br>
-    <mat-toolbar>
-      <table mat-table [dataSource]="dataSource" class="table">
+<div>
+    <table mat-table [dataSource]="dataSource" class="table">
 
         <ng-container matColumnDef="id_especialidad">
         <th mat-header-cell *matHeaderCellDef> ID Especialidad </th>
@@ -27,5 +14,4 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
-    </mat-toolbar>
 </div>
