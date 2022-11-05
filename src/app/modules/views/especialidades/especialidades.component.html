@@ -27,7 +27,6 @@
   <br />
   <ng-template [ngIf]="view">
     <div class="w-75">
-      <mat-toolbar class="p-0">
         <table
           class="table table-primary table-striped "
           mat-table
@@ -48,7 +47,6 @@
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
         </table>
-      </mat-toolbar>
     </div>
   </ng-template>
   <!-- ng else -->
