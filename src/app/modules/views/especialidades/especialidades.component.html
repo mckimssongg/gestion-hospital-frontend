@@ -28,7 +28,7 @@
   <ng-template [ngIf]="view">
     <div class="w-75">
         <table
-          class="table table-primary table-striped "
+          class="table table-primary table-striped"
           mat-table
           [dataSource]="dataSource"
         >
@@ -41,11 +41,18 @@
 
           <ng-container matColumnDef="nombre">
             <th mat-header-cell *matHeaderCellDef>Nombre</th>
-            <td mat-cell *matCellDef="let element">{{ element.nombre }}</td>
+            <td mat-cell *matCellDef="let element">{{ element.nombre }}
+              <a class="d-flex justify-content-end">
+                <button type="button" class="btn btn-danger btn-sm">Eliminar</button>
+                <button type="button" class="btn btn-warning btn-sm">Editar</button>
+              </a>
+            
+            </td>
           </ng-container>
 
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+         
         </table>
     </div>
   </ng-template>
