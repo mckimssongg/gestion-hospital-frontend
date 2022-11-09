@@ -1,17 +1,15 @@
 .toolbar_formato {
-    flex: 1 1 auto;
-    display: flex;
+  flex: 1 1 auto;
+  display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   flex-wrap: nowrap;
-  }
-
+}
 .table {
-    width: 110%;
-    margin-top: 10px;
-  }
-  .button
-  {
-    width: 50%;
-  }
+margin-top: 10px;
+}
+.button
+{
+  width: 50%;
+}

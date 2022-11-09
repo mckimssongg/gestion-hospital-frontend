@@ -2,37 +2,31 @@ import { Component,OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import { Medicos } from 'src/app/interfaces/medicos';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
-
-
-const list_medicos: Medicos[] = [
-  {id:1,cmp:3,apellidos:"Mckimsson",nombres:"Jeremie", foto:"FOTO AQUI"}
-];
-
 @Component({
   selector: 'app-medicos',
   templateUrl: './medicos.component.html',
   styleUrls: ['./medicos.component.css']
 })
 export class MedicosComponent implements OnInit,OnChanges {
-  displayedColumns: string[] = ["id_medicos", "cmp", "apellidos","nombres", "foto"];
+  displayedColumns: string[] = ["id", "cmp", "apellidos","nombres", "foto"];
 
   list_medicos: Medicos[] = [
     { id:2,cmp:4,apellidos:"vicente",nombres:"wilson",foto:"foto"},
   ];
 
-
   dataSource = this.list_medicos;
 
   form = new FormGroup({
-    nombre: new FormControl<string>(''),
-    id_Médicos: new FormControl<number | null>(null),
+    id: new FormControl<number | null>(null),
+    cmp: new FormControl<number | null>(null),
+    apellidos: new FormControl<string>(""),
+    nombres: new FormControl<string>(""),
+    foto: new FormControl<string>("")
   });
 
-  constructor() { }
-  public view: boolean = false;
-  gnOnInit(): void {}
+  constructor() {}
 
-  public View: boolean = false;
+  public view: boolean = false;
   ngOnInit(): void {}
 
   onChangeView() {
@@ -50,6 +44,4 @@ export class MedicosComponent implements OnInit,OnChanges {
       this.form.reset();
     }
   }
-
 }
-
