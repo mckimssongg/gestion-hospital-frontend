@@ -2,37 +2,109 @@
     <mat-toolbar>
         <span>Médicos</span>
     </mat-toolbar>
-    
-    <table mat-table [dataSource]="dataSource" class="table">
+    <!--Botones para redireccionar-->
+    <mat-toolbar color="primary">
+      <button
+        class="button"
+        mat-button
+        (click)="onChangeView()"
+        [disabled]="!view"
+      >
+        Registrar
+      </button>
+      <button
+        class="button"
+        mat-button
+        (click)="onChangeView()"
+        [disabled]="view"
+      >
+        Ver Lista
+      </button>
+    </mat-toolbar>
 
-        <ng-container matColumnDef="id">
-          <th mat-header-cell *matHeaderCellDef> ID </th>
-          <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+<!--Tabla(para mientras)-->
+<br />
+<br />
+<ng-template [ngIf]="view">
+  <div class="w-75">
+    <mat-toolbar class="p-0">
+
+    <table class="table table-primary table-striped "
+    mat-table
+    [dataSource]="dataSource"
+    >
+
+        <ng-container matColumnDef="id_Médicos">
+          <th mat-header-cell *matHeaderCellDef> ID Médicos</th>
+          <td mat-cell *matCellDef="let element"> {{element.id_medicos}} </td>
         </ng-container>
-      
+
         <ng-container matColumnDef="cmp">
           <th mat-header-cell *matHeaderCellDef> CMP </th>
-          <td mat-cell *matCellDef="let element"> {{element.cmp}} </td>
+          <td mat-cell *matCellDef="let element"> {{element.CMP}} </td>
         </ng-container>
-      
+
         <ng-container matColumnDef="apellidos">
           <th mat-header-cell *matHeaderCellDef> Apellidos </th>
           <td mat-cell *matCellDef="let element"> {{element.apellidos}} </td>
         </ng-container>
-      
+
         <ng-container matColumnDef="nombres">
           <th mat-header-cell *matHeaderCellDef> Nombres </th>
-          <td mat-cell *matCellDef="let element"> {{element.nombres}} </td>
+          <td mat-cell *matCellDef="let element">  {{element.Nombres}} </td>
         </ng-container>
 
         <ng-container matColumnDef="foto">
             <th mat-header-cell *matHeaderCellDef> Foto URL </th>
-            <td mat-cell *matCellDef="let element"> {{element.foto}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.foto_URL}} </td>
           </ng-container>
-          
+
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
-      
-      
+    </mat-toolbar>
+  </div>
+</ng-template>
+<!-- ng else -->
+<ng-template [ngIf]="!view">
+  <div class="w-50 border p-4 border-5 rounded-2">
+    <h3 class="text-center">Registro de  Médicos</h3>
+    <form class="px-4" [formGroup]="form" (ngSubmit)="created()">
+      <div class="row">
+        <mat-form-field>
+          <input
+            matInput
+            required
+            placeholder="Nombre de medicos"
+            autocomplete="off"
+            formControlName="nombre"
+
+          />
+        </mat-form-field>
+      </div>
+      <div class="row">
+        <mat-form-field>
+          <input
+            matInput
+            required
+            placeholder="Id de medicos"
+            autocomplete="off"
+            formControlName="id medicos"
+          />
+        </mat-form-field>
+      </div>
+      <div class="row px-4 toolbar_formato">
+        <button
+          mat-raised-button
+          color="primary"
+          class="cpb w-50"
+          type="submit"
+        >
+          Agregrar
+        </button>
+      </div>
+    </form>
+  </div>
+</ng-template>
 </div>
+
