@@ -52,8 +52,4 @@ export class MedicosComponent implements OnInit,OnChanges {
   }
 
 }
-function captura(){
 
-  var id_medicos=document.getElementById().Value;
-  console.log(captura)
-}
