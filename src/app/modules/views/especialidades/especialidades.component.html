@@ -25,10 +25,10 @@
   <!--Tabla(para mientras)-->
   <br />
   <br />
-  <ng-template [ngIf]="view">
-    <div class="w-75">
+  <ng-template [ngIf]="view" >
+    <div class="w-75" >
         <table
-          class="table table-primary table-striped "
+          class="table table-primary table-striped"
           mat-table
           [dataSource]="dataSource"
         >
@@ -41,11 +41,17 @@
 
           <ng-container matColumnDef="nombre">
             <th mat-header-cell *matHeaderCellDef>Nombre</th>
-            <td mat-cell *matCellDef="let element">{{ element.nombre }}</td>
+            <td mat-cell *matCellDef="let element"> {{ element.nombre }}
+              <div style="text-align: right;" >
+                <button  mat-raised-button color="warn">Eliminar</button>
+                <button mat-raised-button color="primary">Editar</button>
+              </div>
+            </td>
           </ng-container>
 
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+         
         </table>
     </div>
   </ng-template>
