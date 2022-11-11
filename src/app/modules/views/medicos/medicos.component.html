@@ -29,10 +29,10 @@
   <br />
   <ng-template [ngIf]="view">
     <div class="w-75">
-      <table 
+      <table
         class="table table-primary table-striped "
         mat-table
-        [dataSource]="dataSource" 
+        [dataSource]="dataSource"
       >
         <ng-container matColumnDef="id">
           <th mat-header-cell *matHeaderCellDef> ID Médicos</th>
@@ -56,7 +56,7 @@
 
         <ng-container matColumnDef="foto">
           <th mat-header-cell *matHeaderCellDef> Foto URL </th>
-          <td mat-cell *matCellDef="let element"> {{element.foto}} 
+          <td mat-cell *matCellDef="let element"> {{element.foto}}
             <div style="text-align: right;" >
               <button  mat-raised-button color="warn">Eliminar</button>
               <button mat-raised-button color="primary">Editar</button>
@@ -86,7 +86,7 @@
             />
           </mat-form-field>
         </div>
-        
+
         <div class="row">
           <mat-form-field>
             <input
