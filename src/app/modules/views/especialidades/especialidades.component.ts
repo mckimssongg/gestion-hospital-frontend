@@ -36,9 +36,8 @@ export class EspecialidadesComponent implements OnInit, OnChanges {
   created() {
     if (this.form.valid) {
       let new_object: Especialidades = this.form.value as Especialidades;
-      let new_objects = [...this.list_especialidades, new_object];
+      let new_objects = [...this.dataSource, new_object];
       this.dataSource = new_objects;
-      this.list_especialidades = new_objects;
       this.form.reset();
     }
   }
