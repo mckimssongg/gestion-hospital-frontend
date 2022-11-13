@@ -1,26 +1,113 @@
+<!--Erick -->
 <div class="toolbar_formato">
-    <mat-toolbar>
-        <span>Laboratorios</span>
-    </mat-toolbar>
-
-    <table mat-table [dataSource]="dataSource" class="table">
-
-        <ng-container matColumnDef="id_examen">
-          <th mat-header-cell *matHeaderCellDef> ID Examen </th>
-          <td mat-cell *matCellDef="let element"> {{element.id_examen}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="descripcion">
-            <th mat-header-cell *matHeaderCellDef> Descripción </th>
-            <td mat-cell *matCellDef="let element"> {{element.descripcion}} </td>
+  <!--Titulo de vista -->
+  <mat-toolbar>
+    <span>Laboratorios</span>
+  </mat-toolbar>
+  <!--Botones para redireccionar-->
+  <mat-toolbar color="primary">
+    <button
+      class="button"
+      mat-button
+      (click)="onChangeView()"
+      [disabled]="!view"
+    >
+      Registrar
+    </button>
+    <button
+      class="button"
+      mat-button
+      (click)="onChangeView()"
+      [disabled]="view"
+    >
+      Ver Lista
+    </button>
+  </mat-toolbar>
+  <!--Tabla(para mientras)-->
+  <br />
+  <br />
+  <ng-template [ngIf]="view" >
+    <div class="w-75" >
+        <table
+          class="table table-primary table-striped"
+          mat-table
+          [dataSource]="dataSource"
+        >
+          <ng-container matColumnDef="id_examen">
+            <th mat-header-cell *matHeaderCellDef>ID examen</th>
+            <td mat-cell *matCellDef="let element">{{ element.id_examen }}</td>
           </ng-container>
-        
-        <ng-container matColumnDef="nombre">
-          <th mat-header-cell *matHeaderCellDef> Nombre </th>
-          <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
-        </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-      </table>
+          <ng-container matColumnDef="descripcion">
+            <th mat-header-cell *matHeaderCellDef>Descripción</th>
+            <td mat-cell *matCellDef="let element"> {{ element.descripcion }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="nombre">
+            <th mat-header-cell *matHeaderCellDef>Nombre</th>
+            <td mat-cell *matCellDef="let element"> {{ element.nombre }}
+              <div style="text-align: right;" >
+                <button  mat-raised-button color="warn">Eliminar</button>
+                <button mat-raised-button color="primary">Editar</button>
+              </div>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+         
+        </table>
+    </div>
+  </ng-template>
+  <!-- ng else -->
+  <ng-template [ngIf]="!view">
+    <div class="w-50 border p-4 border-5 rounded-2">
+      <h3 class="text-center">Registro de laboratorio</h3>
+      <form class="px-4" [formGroup]="form" (ngSubmit)="created()">
+        <div class="row">
+          <mat-form-field>
+            <input
+              matInput
+              required
+              placeholder="Id examen"
+              autocomplete="off"
+              formControlName="id_examen"
+            />
+          </mat-form-field>
+        </div>
+        <div class="row">
+          <mat-form-field>
+            <input
+              matInput
+              required
+              placeholder="Descripcion"
+              autocomplete="off"
+              formControlName="descripcion"
+            />
+          </mat-form-field>
+        </div>
+        <div class="row">
+          <mat-form-field>
+            <input
+              matInput
+              required
+              placeholder="Nombre"
+              autocomplete="off"
+              formControlName="nombre"
+            />
+          </mat-form-field>
+        </div>
+        <div class="row px-4 toolbar_formato">
+          <button
+            mat-raised-button
+            color="primary"
+            class="cpb w-50"
+            type="submit"
+          >
+            Agregrar
+          </button>
+        </div>
+      </form>
+    </div>
+  </ng-template>
 </div>
