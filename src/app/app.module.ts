@@ -23,7 +23,6 @@ import { LoginComponent } from './modules/login/login.component';
     BrowserAnimationsModule,
     StoreModule.forRoot({}, {}),
     StoreDevtoolsModule.instrument({
-      maxAge: 25,
       logOnly: environment.production,
     }),
     BrowserAnimationsModule,
