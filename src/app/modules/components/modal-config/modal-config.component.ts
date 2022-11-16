@@ -16,7 +16,7 @@ export class ModalConfigComponent implements OnInit {
   }
 
   open(content: any) {
-    this.modalService.open(content);
+    this.modalService.open(content, { centered: true, size: 'lg' });
   }
   ngOnInit(): void {}
 }
