@@ -14,9 +14,10 @@ import { SharedModule } from './modules/shared/shared.module';
 
 //INICIAR SECIÓN
 import { LoginComponent } from './modules/login/login.component';
+import { SwalAlertComponent } from './modules/components/swal-alert/swal-alert.component';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent],
+  declarations: [AppComponent, LoginComponent, SwalAlertComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

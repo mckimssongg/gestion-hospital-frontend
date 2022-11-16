@@ -7,9 +7,15 @@
   flex-wrap: nowrap;
 }
 .table {
-margin-top: 10px;
+  margin-top: 10px;
 }
-.button
-{
+.button {
   width: 50%;
+}
+.tittle-th {
+  font-size: 17px;
+}
+.mat-column-acciones {
+  width: 30% !important;
+
 }
