@@ -1,6 +1,7 @@
 <ng-template #content let-c="close" let-d="dismiss">
   <div class="modal-header">
-    <h2 class="modal-title" id="modal-basic-title">Hi there!</h2>
+    <h2 class="modal-title" id="modal-basic-title">
+      <ng-content select="[tittle-content]"></ng-content></h2>
     <button
       type="button"
       class="btn-close"

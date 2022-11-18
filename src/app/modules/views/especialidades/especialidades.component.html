@@ -25,7 +25,7 @@
   </mat-toolbar>
   <!--Tabla(para mientras)-->
   <br />
-  <ng-template [ngIf]="view">
+  <ng-template [ngIf]="true">
     <div class="w-75">
       <table
         class="table table-primary table-striped"
@@ -34,25 +34,71 @@
       >
         <ng-container matColumnDef="id_especialidad">
           <th mat-header-cell *matHeaderCellDef class="tittle-th">Id</th>
-          <td mat-cell *matCellDef="let element">
+          <td mat-cell *matCellDef="let element" class="align-middle">
             {{ element.id_especialidad }}
           </td>
         </ng-container>
 
         <ng-container matColumnDef="nombre">
           <th mat-header-cell *matHeaderCellDef class="tittle-th">Nombre</th>
-          <td mat-cell *matCellDef="let element">{{ element.nombre }}</td>
+          <td mat-cell *matCellDef="let element" class="align-middle">
+            {{ element.nombre }}
+          </td>
         </ng-container>
 
         <ng-container matColumnDef="acciones">
           <th mat-header-cell *matHeaderCellDef class="tittle-th text-center">
             Acciones
           </th>
-          <td mat-cell *matCellDef="let element" class="text-center">
-            <button mat-raised-button color="warn" (click)="delete()">Eliminar</button>
+          <td
+            mat-cell
+            *matCellDef="let element"
+            class="text-center align-middle"
+          >
+            <button mat-raised-button color="warn" (click)="delete()">
+              Eliminar
+            </button>
+            &nbsp;
             <app-modal-config>
+              <div tittle-content>Editar la especialidad: {{ element.nombre }}</div>
               <div class="modal-body" body-content>
-                <p>Hello, World! {{element.nombre}}</p>
+                <div class="w-100 p-4">
+                  <form class="px-4" [formGroup]="form" (ngSubmit)="created()">
+                    <div class="row">
+                      <mat-form-field>
+                        <input
+                          matInput
+                          required
+                          placeholder="Nombre de la especialidad"
+                          autocomplete="off"
+                          formControlName="nombre"
+                        />
+                      </mat-form-field>
+                    </div>
+                    <div class="row">
+                      <mat-form-field>
+                        <input
+                          matInput
+                          required
+                          placeholder="Id de la especialidad"
+                          autocomplete="off"
+                          formControlName="id_especialidad"
+                        />
+                      </mat-form-field>
+                    </div>
+                    <div class="row px-4 toolbar_formato">
+                      <button
+                        mat-raised-button
+                        color="primary"
+                        class="cpb w-50"
+                        type="submit"
+                      >
+                        Actualizar
+                      </button>
+                    </div>
+                  </form>
+                </div>
+                <p class="text-danger">Campos obligatorios*</p>
               </div>
               <div button-content>Editar</div>
             </app-modal-config>
@@ -67,7 +113,7 @@
   <!-- ng else -->
   <ng-template [ngIf]="!view">
     <div class="w-50 border p-4 border-5 rounded-2">
-      <h3 class="text-center">Registro de nuevos empleados</h3>
+      <h3 class="text-center">Registro de nueva especialidad</h3>
       <form class="px-4" [formGroup]="form" (ngSubmit)="created()">
         <div class="row">
           <mat-form-field>
