@@ -1,5 +1,4 @@
-export interface Especialidades
-{
-    id_especialidad: number,
-    nombre: string
+export interface Especialidades {
+  idEspecialidad?: number;
+  nombre: string;
 }

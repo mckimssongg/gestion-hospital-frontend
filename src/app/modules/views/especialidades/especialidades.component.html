@@ -25,29 +25,30 @@
   </mat-toolbar>
   <!--Tabla(para mientras)-->
   <br />
-  <ng-template [ngIf]="true">
+  <ng-template [ngIf]="view">
     <div class="w-75">
       <table
-        class="table table-primary table-striped"
+        class="table-especialidad table table-primary table-hover table-striped rounded rounded-2 overflow-hidden"
         mat-table
         [dataSource]="dataSource"
+        *ngIf="dataSource.length > 0"
       >
         <ng-container matColumnDef="id_especialidad">
-          <th mat-header-cell *matHeaderCellDef class="tittle-th">Id</th>
+          <th mat-header-cell *matHeaderCellDef class="tittle-th align-middle">Id</th>
           <td mat-cell *matCellDef="let element" class="align-middle">
-            {{ element.id_especialidad }}
+            {{ element.idEspecialidad }}
           </td>
         </ng-container>
 
         <ng-container matColumnDef="nombre">
-          <th mat-header-cell *matHeaderCellDef class="tittle-th">Nombre</th>
+          <th mat-header-cell *matHeaderCellDef class="tittle-th align-middle">Nombre</th>
           <td mat-cell *matCellDef="let element" class="align-middle">
             {{ element.nombre }}
           </td>
         </ng-container>
 
         <ng-container matColumnDef="acciones">
-          <th mat-header-cell *matHeaderCellDef class="tittle-th text-center">
+          <th mat-header-cell *matHeaderCellDef class="tittle-th text-center align-middle">
             Acciones
           </th>
           <td
@@ -75,7 +76,7 @@
                         />
                       </mat-form-field>
                     </div>
-                    <div class="row">
+                    <!-- <div class="row">
                       <mat-form-field>
                         <input
                           matInput
@@ -85,7 +86,7 @@
                           formControlName="id_especialidad"
                         />
                       </mat-form-field>
-                    </div>
+                    </div> -->
                     <div class="row px-4 toolbar_formato">
                       <button
                         mat-raised-button
@@ -108,6 +109,9 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
       </table>
+      <div class="text-center" *ngIf="dataSource.length <= 0">
+        <h3>No hay especialidades registradas</h3>
+      </div>
     </div>
   </ng-template>
   <!-- ng else -->
@@ -126,7 +130,7 @@
             />
           </mat-form-field>
         </div>
-        <div class="row">
+        <!-- <div class="row">
           <mat-form-field>
             <input
               matInput
@@ -136,7 +140,7 @@
               formControlName="id_especialidad"
             />
           </mat-form-field>
-        </div>
+        </div> -->
         <div class="row px-4 toolbar_formato">
           <button
             mat-raised-button

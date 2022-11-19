@@ -12,9 +12,10 @@ import {
 @Injectable({
   providedIn: 'root',
 })
-export class EmpleadoService {
+export class EspecialidadesService {
   //Url de la API que obtiene el listado de los empleados
-  private baseUrl = 'http://localhost:8080/';
+  // private baseUrl = 'http://localhost:8080/';
+  private baseUrl = 'https://upana-db-hospital.herokuapp.com/';
   constructor(private httpClient: HttpClient) {}
 
   /**
@@ -23,7 +24,7 @@ export class EmpleadoService {
    */
   obtenerLista(): Observable<Especialidades[]> {
     return this.httpClient.get<Especialidades[]>(
-      `${this.baseUrl} ` + `especialidades`
+      `${this.baseUrl}especialidades/`
     );
   }
 
@@ -38,6 +39,6 @@ export class EmpleadoService {
    * }
    */
   registrar(obj: Especialidades): Observable<Object> {
-    return this.httpClient.post(`${this.baseUrl}`, obj);
+    return this.httpClient.post(`${this.baseUrl}especialidades/`, obj);
   }
 }
