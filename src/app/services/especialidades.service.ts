@@ -41,4 +41,7 @@ export class EspecialidadesService {
   registrar(obj: Especialidades): Observable<Object> {
     return this.httpClient.post(`${this.baseUrl}especialidades/`, obj);
   }
+  eliminar(id: number): Observable<Object> {
+    return this.httpClient.delete(`${this.baseUrl}especialidades/${id}`);
+  }
 }

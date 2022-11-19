@@ -57,41 +57,46 @@ export class EspecialidadesComponent implements OnInit {
   update(id: number) {
     console.log(id);
   }
-  delete() {
+  delete(id_registro: number, nombre_registro: string) {
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
-        confirmButton: 'btn btn-success',
-        cancelButton: 'btn btn-danger',
+        confirmButton: 'btn btn-primary mx-2',
+        cancelButton: 'btn btn-danger mx-2',
       },
       buttonsStyling: false,
     });
 
     swalWithBootstrapButtons
       .fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
+        title: '¿Estás seguro?',
+        text: `Estas por eliminar ${nombre_registro}!`,
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonText: 'Yes, delete it!',
-        cancelButtonText: 'No, cancel!',
+        confirmButtonText: 'Si, Quiero eliminarlo!',
+        cancelButtonText: 'No, cancelar!',
         reverseButtons: true,
       })
       .then((result) => {
         if (result.isConfirmed) {
-          swalWithBootstrapButtons.fire(
-            'Deleted!',
-            'Your file has been deleted.',
-            'success'
-          );
-        } else if (
-          /* Read more about handling dismissals below */
-          result.dismiss === Swal.DismissReason.cancel
-        ) {
-          swalWithBootstrapButtons.fire(
-            'Cancelled',
-            'Your imaginary file is safe :)',
-            'error'
-          );
+          this.especialidadesService.eliminar(id_registro).subscribe({
+            next: (data) => {
+              this.getEspecialidades();
+              swalWithBootstrapButtons.fire(
+                'Eliminado!',
+                `${nombre_registro} ha sido eliminado.`,
+                'success'
+              );
+            },
+            error: (error) => {
+              swalWithBootstrapButtons.fire('Error', '', 'error');
+              console.log(error);
+            },
+            complete: () => {
+              console.log('complete');
+            },
+          });
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          swalWithBootstrapButtons.fire('Cancelado', '', 'error');
         }
       });
   }
