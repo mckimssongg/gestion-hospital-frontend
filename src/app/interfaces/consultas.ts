@@ -1,4 +1,4 @@
-export interface Consultas 
+export interface Consultas
 {
     id_consulta: number,
     fecha: string,
