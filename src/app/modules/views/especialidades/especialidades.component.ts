@@ -56,18 +56,18 @@ export class EspecialidadesComponent implements OnInit {
 
   update(id: number) {
     if (this.form.valid) {
-      this.especialidadesService
-        .actualizar(id, this.form.value as Especialidades)
-        .subscribe({
-          next: (data) => {
-            Swal.fire('Registro actualizado', '', 'success');
-            this.getEspecialidades();
-          },
-          error: (error) => {
-            Swal.fire('Error', '', 'error');
-            console.log(error);
-          },
-        });
+      let obj_Especialidad = this.form.value as Especialidades;
+      obj_Especialidad.idEspecialidad = id;
+      this.especialidadesService.actualizar(id, obj_Especialidad).subscribe({
+        next: (data) => {
+          Swal.fire('Registro actualizado', '', 'success');
+          this.getEspecialidades();
+        },
+        error: (error) => {
+          Swal.fire('Error', '', 'error');
+          console.log(error);
+        },
+      });
       this.form.reset();
     }
   }
