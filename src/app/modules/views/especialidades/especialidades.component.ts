@@ -3,6 +3,7 @@ import { Especialidades } from 'src/app/interfaces/especialidades';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { EspecialidadesService } from 'src/app/services/especialidades.service';
 import Swal from 'sweetalert2';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-especialidades',
@@ -18,7 +19,10 @@ export class EspecialidadesComponent implements OnInit {
     nombre: new FormControl<string>(''),
   });
 
-  constructor(private especialidadesService: EspecialidadesService) {}
+  constructor(
+    private especialidadesService: EspecialidadesService,
+    private modalService: NgbModal
+  ) {}
 
   public is_open_modal: boolean = false;
   public view: boolean = false;
@@ -36,6 +40,7 @@ export class EspecialidadesComponent implements OnInit {
 
   onChangeView() {
     this.view = !this.view;
+    this.getEspecialidades();
   }
 
   created() {
@@ -50,10 +55,6 @@ export class EspecialidadesComponent implements OnInit {
     }
   }
 
-  openModal() {
-    this.is_open_modal = true;
-  }
-
   update(id: number) {
     if (this.form.valid) {
       let obj_Especialidad = this.form.value as Especialidades;
@@ -66,6 +67,9 @@ export class EspecialidadesComponent implements OnInit {
         error: (error) => {
           Swal.fire('Error', '', 'error');
           console.log(error);
+        },
+        complete: () => {
+          this.modalService.dismissAll();
         },
       });
       this.form.reset();
