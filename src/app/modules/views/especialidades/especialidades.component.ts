@@ -55,7 +55,21 @@ export class EspecialidadesComponent implements OnInit {
   }
 
   update(id: number) {
-    console.log(id);
+    if (this.form.valid) {
+      this.especialidadesService
+        .actualizar(id, this.form.value as Especialidades)
+        .subscribe({
+          next: (data) => {
+            Swal.fire('Registro actualizado', '', 'success');
+            this.getEspecialidades();
+          },
+          error: (error) => {
+            Swal.fire('Error', '', 'error');
+            console.log(error);
+          },
+        });
+      this.form.reset();
+    }
   }
   delete(id_registro: number, nombre_registro: string) {
     const swalWithBootstrapButtons = Swal.mixin({

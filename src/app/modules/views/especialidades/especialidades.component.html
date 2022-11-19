@@ -78,7 +78,11 @@
               </div>
               <div class="modal-body" body-content>
                 <div class="w-100 p-4">
-                  <form class="px-4" [formGroup]="form" (ngSubmit)="created()">
+                  <form
+                    class="px-4"
+                    [formGroup]="form"
+                    (ngSubmit)="update(element.idEspecialidad)"
+                  >
                     <div class="row">
                       <mat-form-field>
                         <input
@@ -87,6 +91,7 @@
                           placeholder="Nombre de la especialidad"
                           autocomplete="off"
                           formControlName="nombre"
+                          value="{{ element.nombre }}"
                         />
                       </mat-form-field>
                     </div>

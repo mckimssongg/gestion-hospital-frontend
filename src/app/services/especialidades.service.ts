@@ -44,4 +44,7 @@ export class EspecialidadesService {
   eliminar(id: number): Observable<Object> {
     return this.httpClient.delete(`${this.baseUrl}especialidades/${id}`);
   }
+  actualizar(id: number, obj: Especialidades): Observable<Object> {
+    return this.httpClient.put(`${this.baseUrl}especialidades/${id}`, obj);
+  }
 }
