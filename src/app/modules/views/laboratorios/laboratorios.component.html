@@ -1,4 +1,4 @@
-<!--Erick -->
+
 <div class="toolbar_formato">
   <!--Titulo de vista -->
   <mat-toolbar>
@@ -28,85 +28,153 @@
   <ng-template [ngIf]="view" >
     <div class="w-75" >
         <table
-          class="table table-primary table-striped"
+          class="table-laboratorios table table-primary table-hover table-striped rounded rounded-2 overflow-hidden box-shadow-custom"
           mat-table
           [dataSource]="dataSource"
+          *ngIf="dataSource.length > 0"
         >
-          <ng-container matColumnDef="id_examen">
-            <th mat-header-cell *matHeaderCellDef>ID examen</th>
-            <td mat-cell *matCellDef="let element">{{ element.id_examen }}</td>
+          <ng-container matColumnDef="idExamen">
+            <th mat-header-cell *matHeaderCellDef class="tittle-th align-middle">ID examen</th>
+            <td mat-cell *matCellDef="let element" class="align-middle">{{ element.idExamen }}</td>
           </ng-container>
 
           <ng-container matColumnDef="descripcion">
-            <th mat-header-cell *matHeaderCellDef>Descripción</th>
-            <td mat-cell *matCellDef="let element"> {{ element.descripcion }}</td>
+            <th mat-header-cell *matHeaderCellDef class="tittle-th align-middle">Descripción</th>
+            <td mat-cell *matCellDef="let element" class="align-middle" >{{ element.descripcion }}</td>
           </ng-container>
 
           <ng-container matColumnDef="nombre">
-            <th mat-header-cell *matHeaderCellDef>Nombre</th>
-            <td mat-cell *matCellDef="let element"> {{ element.nombre }}
-              <div style="text-align: right;" >
-                <button  mat-raised-button color="warn">Eliminar</button>
-                <button mat-raised-button color="primary">Editar</button>
-              </div>
+            <th mat-header-cell *matHeaderCellDef class="tittle-th align-middle">Nombre</th>
+            <td mat-cell *matCellDef="let element" class="align-middle"> {{ element.nombre }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="acciones">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              class="tittle-th text-center align-middle"
+            >
+              Acciones
+            </th>
+            <td
+              mat-cell
+              *matCellDef="let element"
+              class="text-center align-middle"
+            >
+              <button
+                mat-raised-button
+                color="warn"
+                (click)="delete(element.idExamen, element.nombre_registro)"
+              >
+                Eliminar
+              </button>
+              &nbsp;
+              <app-modal-config>
+                <div tittle-content>
+                  Editar laboratorio: {{ element.nombre }}
+                </div>
+                <div class="modal-body" body-content>
+                  <div class="w-100 p-4">
+                    <form
+                      class="px-4"
+                      [formGroup]="form"
+                      (ngSubmit)="update(element.idExamen)"
+                    >
+                      <div class="row">
+                        <mat-form-field>
+                          <input
+                            matInput
+                            required
+                            placeholder="Nombre del laboratorio"
+                            autocomplete="off"
+                            formControlName="nombre"
+                            value="{{ element.nombre }}"
+                          />
+                        </mat-form-field>
+                      </div>
+
+                      <div class="row">
+                        <mat-form-field>
+                          <input
+                            matInput
+                            required
+                            placeholder="Descripción del laboratorio"
+                            autocomplete="off"
+                            formControlName="descripcion"
+                            value="{{ element.descripcion }}"
+                          />
+                        </mat-form-field>
+                      </div>
+
+                      <div class="row px-4 toolbar_formato">
+                        <button
+                          mat-raised-button
+                          color="primary"
+                          class="cpb w-50"
+                          type="submit"
+                        >
+                          Actualizar
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                  <p class="text-danger">Campos obligatorios*</p>
+                </div>
+                <div button-content>Editar</div>
+              </app-modal-config>
             </td>
           </ng-container>
 
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-
         </table>
-    </div>
-  </ng-template>
-  <!-- ng else -->
-  <ng-template [ngIf]="!view">
-    <div class="w-50 border p-4 border-5 rounded-2">
-      <h3 class="text-center">Registro de laboratorio</h3>
-      <form class="px-4" [formGroup]="form" (ngSubmit)="created()">
-        <div class="row">
-          <mat-form-field>
-            <input
-              matInput
-              required
-              placeholder="Id examen"
-              autocomplete="off"
-              formControlName="id_examen"
-            />
-          </mat-form-field>
+        <div class="text-center" *ngIf="dataSource.length <= 0">
+          <h3>No hay laboratorios registrados</h3>
         </div>
-        <div class="row">
-          <mat-form-field>
-            <input
-              matInput
-              required
-              placeholder="Descripcion"
-              autocomplete="off"
-              formControlName="descripcion"
-            />
-          </mat-form-field>
-        </div>
-        <div class="row">
-          <mat-form-field>
-            <input
-              matInput
-              required
-              placeholder="Nombre"
-              autocomplete="off"
-              formControlName="nombre"
-            />
-          </mat-form-field>
-        </div>
-        <div class="row px-4 toolbar_formato">
-          <button
-            mat-raised-button
-            color="primary"
-            class="cpb w-50"
-            type="submit"
-          >
-            Agregrar
-          </button>
-        </div>
-      </form>
-    </div>
-  </ng-template>
+      </div>
+    </ng-template>
+    <!-- ng else -->
+    <ng-template [ngIf]="!view">
+      <div
+        class="w-50 border p-4 border-5 rounded-2 bg-light border-primary border-opacity-25 box-shadow-custom"
+      >
+        <h3 class="text-center">Registro de nuevo laboratorio</h3>
+        <form class="px-4" [formGroup]="form" (ngSubmit)="created()">
+          <div class="row">
+            <mat-form-field>
+              <input
+                matInput
+                required
+                placeholder="Nombre del laboratorio"
+                autocomplete="off"
+                formControlName="nombre"
+              />
+            </mat-form-field>
+          </div>
+
+          <div class="row">
+            <mat-form-field>
+              <input
+                matInput
+                required
+                placeholder="Descripción del laboratorio"
+                autocomplete="off"
+                formControlName="descripcion"
+              />
+            </mat-form-field>
+          </div>
+
+          <div class="row px-4 toolbar_formato">
+            <button
+              mat-raised-button
+              color="primary"
+              class="cpb w-50"
+              type="submit"
+            >
+              Agregrar
+            </button>
+         </div>
+        </form>
+      </div>
+    </ng-template>
 </div>
