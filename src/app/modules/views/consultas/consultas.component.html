@@ -1,21 +1,20 @@
 <div class="toolbar_formato">
-    <mat-toolbar>
-      <span>Consultas</span>
-    </mat-toolbar>
- <!--Botones para redireccionar-->
+  <mat-toolbar>
+    <span>Consultas</span>
+  </mat-toolbar>
+  <!--Botones para redireccionar-->
 
- <mat-toolbar color="primary">
-  <button
-    class="button"
-    mat-button
-    (click)="onChangeView()"
-    [disabled]="!view"
-  >
+  <mat-toolbar color="primary">
+    <button
+      class="button"
+      mat-button
+      (click)="onChangeView()"
+      [disabled]="!view"
+    >
+      Registrar
+    </button>
 
-  Registrar
-</button>
-
-<button
+    <button
       class="button"
       mat-button
       (click)="onChangeView()"
@@ -24,87 +23,143 @@
       Ver Lista
     </button>
   </mat-toolbar>
-<!--Tabla(para mientras)-->
-<br />
-<br />
-<ng-template [ngIf]="view">
-  <div class="w-75">
-    <table mat-table [dataSource]="dataSource" class="table">
-
-        <ng-container matColumnDef="id_consulta">
-            <th mat-header-cell *matHeaderCellDef>ID Consulta</th>
-            <td mat-cell *matCellDef="let element"> {{element.id_consulta}} </td>
-        </ng-container>
-
+  <!--Tabla(para mientras)-->
+  <br />
+  <ng-template [ngIf]="view">
+    <div class="w-75">
+      <table mat-table [dataSource]="dataSource" class="table">
         <ng-container matColumnDef="fecha">
-            <th mat-header-cell *matHeaderCellDef> Fecha </th>
-            <td mat-cell *matCellDef="let element"> {{element.fecha}} </td>
+          <th mat-header-cell *matHeaderCellDef>Fecha</th>
+          <td mat-cell *matCellDef="let element">{{ element.fecha }}</td>
         </ng-container>
 
         <ng-container matColumnDef="num_consultorio">
-            <th mat-header-cell *matHeaderCellDef> No. Consultorio </th>
-            <td mat-cell *matCellDef="let element"> {{element.num_consultorio}} </td>
+          <th mat-header-cell *matHeaderCellDef>No. Consultorio</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.num_consultorio }}
+          </td>
         </ng-container>
 
         <ng-container matColumnDef="id_especialidad">
-            <th mat-header-cell *matHeaderCellDef> ID Especialidad </th>
-            <td mat-cell *matCellDef="let element">{{element.id_especialidad}}</td>
+          <th mat-header-cell *matHeaderCellDef>Especialidad</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.id_especialidad }}
+          </td>
         </ng-container>
 
         <ng-container matColumnDef="id_medico">
-            <th mat-header-cell *matHeaderCellDef> ID Médico</th>
-            <td mat-cell *matCellDef="let element"> {{element.id_medico}} </td>
+          <th mat-header-cell *matHeaderCellDef>Médico</th>
+          <td mat-cell *matCellDef="let element">{{ element.id_medico }}</td>
         </ng-container>
 
         <ng-container matColumnDef="id_paciente">
-            <th mat-header-cell *matHeaderCellDef> ID Paciente</th>
-            <td mat-cell *matCellDef="let element"> {{element.id_paciente}}
-              <div style="text-align: right;" >
-                <button  mat-raised-button color="warn">Eliminar</button>
-                <button mat-raised-button color="primary">Editar</button>
+          <th mat-header-cell *matHeaderCellDef>Paciente</th>
+          <td mat-cell *matCellDef="let element">{{ element.id_paciente }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="acciones">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            class="tittle-th text-center align-middle"
+          >
+            Acciones
+          </th>
+          <td
+            mat-cell
+            *matCellDef="let element"
+            class="text-center align-middle"
+          >
+            <button mat-raised-button color="warn">Eliminar</button>
+            &nbsp;
+            <app-modal-config>
+              <div tittle-content>Editar laboratorio: {{ element.nombre }}</div>
+              <div class="modal-body" body-content>
+                <div class="w-100 p-4">
+                  <form class="px-4" [formGroup]="form">
+                    <div class="row">
+                      <mat-form-field>
+                        <input
+                          matInput
+                          required
+                          placeholder="Nombre del laboratorio"
+                          autocomplete="off"
+                          formControlName="nombre"
+                          value="{{ element.nombre }}"
+                        />
+                      </mat-form-field>
+                    </div>
+
+                    <div class="row">
+                      <mat-form-field>
+                        <input
+                          matInput
+                          required
+                          placeholder="Descripción del laboratorio"
+                          autocomplete="off"
+                          formControlName="descripcion"
+                          value="{{ element.descripcion }}"
+                        />
+                      </mat-form-field>
+                    </div>
+
+                    <div class="row px-4 toolbar_formato">
+                      <button
+                        mat-raised-button
+                        color="primary"
+                        class="cpb w-50"
+                        type="submit"
+                      >
+                        Actualizar
+                      </button>
+                    </div>
+                  </form>
+                </div>
+                <p class="text-danger">Campos obligatorios*</p>
               </div>
-            </td>
-          </ng-container>
+              <div button-content>Editar</div>
+            </app-modal-config>
 
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        </table>
-      </div>
-    </ng-template>
+            <button mat-raised-button color="warn">Realizar diagnostico</button>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </div>
+  </ng-template>
 
-    <!-- ng else -->
-    <ng-template [ngIf]="!view">
-      <div class="w-50 border p-4 border-5 rounded-2">
-        <h3 class="text-center">Registro de Consultas</h3>
-        <form class="px-4" [formGroup]="form" (ngSubmit)="created()">
+  <!--Formulario-->
+  <!-- ng else -->
+  <ng-template [ngIf]="!view">
+    <div
+    class="w-50 border p-4 border-5 rounded-2 bg-light border-primary border-opacity-25 box-shadow-custom">
+      <h3 class="text-center">Registro de Consultas</h3>
+      <form class="px-4" [formGroup]="form" (ngSubmit)="created()">
+        <!--INPUT-->
 
-          <!--INPUT-->
-          <div class="row">
+        <div class="row d-flex">
+          <div class="col-6">
             <mat-form-field>
+              <mat-label>Fecha de la cita</mat-label>
               <input
-                matInput
                 required
-                placeholder="Id Consulta"
-                autocomplete="off"
-                formControlName="id_consulta"
-              />
-            </mat-form-field>
-          </div>
-
-          <div class="row">
-            <mat-form-field>
-              <input
                 matInput
-                required
-                placeholder="Fecha (dd/mm/yy)"
-                autocomplete="off"
+                readonly
+                [matDatepicker]="picker"
                 formControlName="fecha"
+                (focus)="picker.open()"
               />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="picker"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
           </div>
 
-          <div class="row">
-            <mat-form-field>
+          <div class="col-6">
+            <mat-form-field >
               <input
                 matInput
                 required
@@ -114,54 +169,62 @@
               />
             </mat-form-field>
           </div>
+        </div>
 
-          <div class="row">
-            <mat-form-field>
-              <input
-                matInput
-                required
-                placeholder="ID Especialidad"
-                autocomplete="off"
-                formControlName="id_especialidad"
-              />
-            </mat-form-field>
-          </div>
+        <!-- select de especialidades {id: number, name: nombredelaespecialidad } -->
+        <div class="row">
+          <mat-form-field>
+            <mat-label>Especialidad</mat-label>
+            <mat-select formControlName="id_especialidad" required disableOptionCentering>
+              <mat-option value="one">First option</mat-option>
+              <mat-option value="two">Second option</mat-option>
+              <!-- <mat-option
+                *ngFor="let especialidad of Especialidades_Option"
+                [value]="especialidad.idEspecialidad"
+              >
+                {{ especialidad.nombre }}
+              </mat-option> -->
+            </mat-select>
+          </mat-form-field>
+        </div>
 
-          <div class="row">
-            <mat-form-field>
-              <input
-                matInput
-                required
-                placeholder="ID Médico"
-                autocomplete="off"
-                formControlName="id_medico"
-              />
-            </mat-form-field>
-          </div>
+        <div class="row">
+          <mat-form-field>
+            <input
+              matInput
+              required
+              placeholder="ID Médico"
+              autocomplete="off"
+              formControlName="id_medico"
+            />
+          </mat-form-field>
+        </div>
 
-          <div class="row">
-            <mat-form-field>
-              <input
-                matInput
-                required
-                placeholder="ID Paciente"
-                autocomplete="off"
-                formControlName="id_paciente"
-              />
-            </mat-form-field>
-          </div>
+        <div class="row">
+          <mat-form-field>
+            <input
+              matInput
+              required
+              placeholder="ID Paciente"
+              autocomplete="off"
+              formControlName="id_paciente"
+            />
+          </mat-form-field>
+        </div>
 
-            <div class="row px-4 toolbar_formato">
-                <button
-                mat-raised-button
-                color="primary"
-                class="cpb w-50"
-                type="submit"
-                >
-                    Agregrar
-                </button>
-            </div>
-        </form>
-      </div>
-    </ng-template>
+        <div class="row px-4 toolbar_formato">
+          <button
+            mat-raised-button
+            color="primary"
+            class="cpb w-50"
+            type="submit"
+          >
+            Agregrar
+          </button>
+        </div>
+      </form>
+    </div>
+  </ng-template>
 </div>
+
+

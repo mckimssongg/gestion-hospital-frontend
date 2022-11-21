@@ -17,4 +17,8 @@ $custom-colors: (
 
 $theme-colors: map-merge($theme-colors, $custom-colors);
 
+.mat-select-panel {
+  margin-top: 35px;
+}
+
 @import "../../node_modules/bootstrap/scss/bootstrap";

@@ -33,9 +33,7 @@ export class LaboratoriosService {
    * @description Obtiene el listado de Laboratorios
    */
   obtenerLista(): Observable<Laboratorios[]> {
-    return this.httpClient.get<Laboratorios[]>(
-      `${this.baseUrl}examenes/`
-    );
+    return this.httpClient.get<Laboratorios[]>(`${this.baseUrl}examenes/`);
   }
 
   /**

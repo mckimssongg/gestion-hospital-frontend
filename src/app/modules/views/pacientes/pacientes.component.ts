@@ -1,31 +1,36 @@
-import { Component, OnChanges, OnInit,SimpleChanges} from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Pacientes } from 'src/app/interfaces/pacientes';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 @Component({
   selector: 'app-pacientes',
   templateUrl: './pacientes.component.html',
-  styleUrls: ['./pacientes.component.css']
+  styleUrls: ['./pacientes.component.css'],
 })
 export class PacientesComponent implements OnInit {
-  displayedColumns: string[] = ["id_paciente","apellidos","nombres","direccion","dni","email","telefono"];
-  
-  list_pacientes: Pacientes[] = [
-  {id_paciente:22,apellidos:"Herrera",nombres:"Dulce",direccion:"Narnia",dni:16217,email:"jojojo.com",telefono:896534}
+  displayedColumns: string[] = [
+    'id_paciente',
+    'apellidos',
+    'nombres',
+    'direccion',
+    'dni',
+    'email',
+    'telefono',
   ];
- 
+
+  list_pacientes: Pacientes[] = [];
+
   dataSource = this.list_pacientes;
 
   form = new FormGroup({
-    id_paciente: new FormControl<number | null>(null),
-    apellidos: new FormControl<string>(""),
-    nombres: new FormControl<string>(""),
-    direccion: new FormControl<string>(""),
+    apellidos: new FormControl<string>(''),
+    nombres: new FormControl<string>(''),
+    direccion: new FormControl<string>(''),
     dni: new FormControl<number | null>(null),
-    email: new FormControl<string>(""),
+    email: new FormControl<string>(''),
     telefono: new FormControl<number | null>(null),
   });
 
-  constructor() { }
+  constructor() {}
   public view: boolean = false;
   ngOnInit(): void {}
 
