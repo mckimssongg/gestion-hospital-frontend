@@ -8,6 +8,7 @@ import {
   Laboratorios,
   Pacientes,
 } from '../interfaces';
+import { baseUrlPro as baseUrl } from './index';
 
 @Injectable({
   providedIn: 'root',
@@ -23,9 +24,6 @@ export class LaboratoriosService {
     delete >>>>> es para eliminar datos
     post ("url", objeto)
   */
-  // private baseUrl = 'http://localhost:8080/';
-
-  private baseUrl = 'https://upana-db-hospital.herokuapp.com/';
   constructor(private httpClient: HttpClient) {}
 
   /**
@@ -33,7 +31,7 @@ export class LaboratoriosService {
    * @description Obtiene el listado de Laboratorios
    */
   obtenerLista(): Observable<Laboratorios[]> {
-    return this.httpClient.get<Laboratorios[]>(`${this.baseUrl}examenes/`);
+    return this.httpClient.get<Laboratorios[]>(`${baseUrl}examenes/`);
   }
 
   /**
@@ -47,12 +45,12 @@ export class LaboratoriosService {
    * }
    */
   registrar(obj: Laboratorios): Observable<Object> {
-    return this.httpClient.post(`${this.baseUrl}examenes/`, obj);
+    return this.httpClient.post(`${baseUrl}examenes/`, obj);
   }
   eliminar(id: number): Observable<Object> {
-    return this.httpClient.delete(`${this.baseUrl}examenes/${id}`);
+    return this.httpClient.delete(`${baseUrl}examenes/${id}`);
   }
   actualizar(id: number, obj: Laboratorios): Observable<Object> {
-    return this.httpClient.put(`${this.baseUrl}examenes/${id}/`, obj);
+    return this.httpClient.put(`${baseUrl}examenes/${id}/`, obj);
   }
 }

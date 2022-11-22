@@ -9,6 +9,8 @@ import { Medicos } from '../../../interfaces/medicos';
 import { Pacientes } from '../../../interfaces/pacientes';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { EspecialidadesService } from '../../../services/especialidades.service';
+import { MedicosService } from '../../../services/medicos.service';
+import { PacienteService } from '../../../services/paciente.service';
 
 @Component({
   selector: 'app-consultas',
@@ -42,11 +44,17 @@ export class ConsultasComponent implements OnInit, OnChanges {
   constructor(
     private service: ConsultaService,
     private especialidadesService: EspecialidadesService,
+    private medicosService: MedicosService,
+    private pacienteService: PacienteService,
     private modalService: NgbModal
   ) {}
 
   public view: boolean = false;
   ngOnInit(): void {
+    this.getAllData();
+  }
+
+  getAllData() {
     this.service.obtenerLista().subscribe((data) => {
       this.dataSource = data;
     });
@@ -54,36 +62,49 @@ export class ConsultasComponent implements OnInit, OnChanges {
     this.especialidadesService.obtenerLista().subscribe((data) => {
       this.Especialidades_Option = data;
     });
-    //Traer medicos
-    // this.medicosService.obtenerLista().subscribe((data) => {
-    //   this.Medicos_Option = data;
-    // });
-    //Traer pacientes
-    // this.pacientesService.obtenerLista().subscribe((data) => {
-    //   this.Pacientes_Option = data;
-    // });
+    // Traer medicos
+    this.medicosService.obtenerLista().subscribe((data) => {
+      this.Medicos_Option = data;
+    });
+    // Traer pacientes
+    this.pacienteService.obtenerLista().subscribe((data) => {
+      this.Pacientes_Option = data;
+    });
   }
 
   onChangeView() {
     this.view = !this.view;
+    this.getAllData();
   }
+
   ngOnChanges(changes: SimpleChanges) {
     console.log(changes);
   }
 
-  format(dateString: string) {
+  format(dateString: string): string {
     let date = new Date(dateString);
     let day = date.getDate();
     let month = date.getMonth() + 1;
     let year = date.getFullYear();
-    return `${day}-${month}-${year}`;
+    //LocalDateTime 2007-12-03T10:15:30
+    return `${year}-${month}-${day}T00:00:00`;
   }
-
   created() {
     if (this.form.valid) {
-      // let new_object: Consultas = this.form.value as Consultas;
-      // let new_objects = [...this.dataSource, new_object];
-      // this.dataSource = new_objects;
+      let fecha_formatea = this.format(this.form.value.fecha as string);
+      let obj_consulta: Consultas = this.form.value as Consultas;
+      obj_consulta.fecha = fecha_formatea;
+      this.service.registrar(obj_consulta as Consultas).subscribe({
+        next: () => {
+          Swal.fire('Registro guardado', '', 'success');
+        },
+        error: (err) => {
+          Swal.fire('Error', err.error, 'error');
+        },
+        complete: () => {
+          this.getAllData();
+        },
+      });
       this.form.reset();
     }
   }

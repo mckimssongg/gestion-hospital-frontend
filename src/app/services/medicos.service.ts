@@ -8,6 +8,7 @@ import {
   Laboratorios,
   Pacientes,
 } from '../interfaces';
+import { baseUrlPro as baseUrl } from './index';
 
 @Injectable({
   providedIn: 'root',
@@ -23,9 +24,6 @@ export class MedicosService {
     delete >>>>> es para eliminar datos
     post ("url", objeto)
   */
-  // private baseUrl = 'http://localhost:8080/';
-
-  private baseUrl = 'https://upana-db-hospital.herokuapp.com/';
   constructor(private httpClient: HttpClient) {}
 
   /**
@@ -33,6 +31,6 @@ export class MedicosService {
    * @description Obtiene el listado de medicos
    */
   obtenerLista(): Observable<Medicos[]> {
-    return this.httpClient.get<Medicos[]>(`${this.baseUrl}medicos/`);
+    return this.httpClient.get<Medicos[]>(`${baseUrl}medicos/`);
   }
 }

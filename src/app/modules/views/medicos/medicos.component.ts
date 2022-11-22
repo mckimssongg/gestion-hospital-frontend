@@ -11,7 +11,13 @@ export class MedicosComponent implements OnInit, OnChanges {
   displayedColumns: string[] = ['id', 'cmp', 'apellidos', 'nombres', 'foto'];
 
   list_medicos: Medicos[] = [
-    { id: 2, cmp: 4, apellidos: 'vicente', nombres: 'wilson', foto: 'foto' },
+    {
+      idMedico: 2,
+      cmp: 4,
+      apellidos: 'vicente',
+      nombres: 'wilson',
+      foto: 'foto',
+    },
   ];
 
   dataSource = this.list_medicos;

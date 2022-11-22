@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { baseUrlPro as baseUrl } from './index';
 import {
   Consultas,
   Especialidades,
@@ -12,7 +13,7 @@ import {
 @Injectable({
   providedIn: 'root',
 })
-export class EspecialidadesService {
+export class PacienteService {
   //Url de la API que obtiene el listado de los empleados
   /* get >>>>> es para traer datos
     post ("url")
@@ -23,9 +24,6 @@ export class EspecialidadesService {
     delete >>>>> es para eliminar datos
     post ("url", objeto)
   */
-  // private baseUrl = 'http://localhost:8080/';
-
-  private baseUrl = 'https://upana-db-hospital.herokuapp.com/';
   constructor(private httpClient: HttpClient) {}
 
   /**
@@ -33,6 +31,6 @@ export class EspecialidadesService {
    * @description Obtiene el listado de pacientes
    */
   obtenerLista(): Observable<Pacientes[]> {
-    return this.httpClient.get<Pacientes[]>(`${this.baseUrl}pacientes/`);
+    return this.httpClient.get<Pacientes[]>(`${baseUrl}pacientes/`);
   }
 }

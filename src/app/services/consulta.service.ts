@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Consultas } from '../interfaces';
+import { baseUrlPro as baseUrl } from './index';
 
 @Injectable({
   providedIn: 'root',
@@ -17,9 +18,6 @@ export class ConsultaService {
     delete >>>>> es para eliminar datos
     post ("url", objeto)
   */
-  // private baseUrl = 'http://localhost:8080/';
-
-  private baseUrl = 'https://upana-db-hospital.herokuapp.com/';
   constructor(private httpClient: HttpClient) {}
 
   /**
@@ -27,7 +25,7 @@ export class ConsultaService {
    * @description Obtiene el listado de especialidades
    */
   obtenerLista(): Observable<Consultas[]> {
-    return this.httpClient.get<Consultas[]>(`${this.baseUrl}consultas/`);
+    return this.httpClient.get<Consultas[]>(`${baseUrl}consultas/`);
   }
 
   /**
@@ -45,12 +43,12 @@ export class ConsultaService {
    * }
    */
   registrar(obj: Consultas): Observable<Object> {
-    return this.httpClient.post(`${this.baseUrl}consultas/`, obj);
+    return this.httpClient.post(`${baseUrl}consultas/registrar/`, obj);
   }
   eliminar(id: number): Observable<Object> {
-    return this.httpClient.delete(`${this.baseUrl}consultas/${id}`);
+    return this.httpClient.delete(`${baseUrl}consultas/${id}`);
   }
   actualizar(id: number, obj: Consultas): Observable<Object> {
-    return this.httpClient.put(`${this.baseUrl}consultas/${id}/`, obj);
+    return this.httpClient.put(`${baseUrl}consultas/${id}/`, obj);
   }
 }
