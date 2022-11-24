@@ -27,81 +27,196 @@
   <ng-template [ngIf]="view">
     <div class="w-75">
       <table
-        class="table table-primary table-striped "
+      class="table-laboratorios table table-primary table-hover table-striped rounded rounded-2 overflow-hidden box-shadow-custom"
         mat-table
         [dataSource]="dataSource"
+        *ngIf="dataSource.length > 0"
       >
       <ng-container matColumnDef="id_paciente">
-          <th mat-header-cell *matHeaderCellDef>ID Paciente</th>
-          <td mat-cell *matCellDef="let element"> {{element.idPaciente}} </td>
+          <th mat-header-cell *matHeaderCellDef class="tittle-th align-middle">ID Paciente</th>
+          <td mat-cell *matCellDef="let element" class="align-middle"> {{element.idPaciente}} </td>
       </ng-container>
 
       <ng-container matColumnDef="apellidos">
-          <th mat-header-cell *matHeaderCellDef> Apellidos </th>
-          <td mat-cell *matCellDef="let element"> {{element.apellidos}} </td>
+          <th mat-header-cell *matHeaderCellDef class="tittle-th align-middle"> Apellidos </th>
+          <td mat-cell *matCellDef="let element" class="align-middle"> {{element.apellidos}} </td>
       </ng-container>
 
       <ng-container matColumnDef="nombres">
-          <th mat-header-cell *matHeaderCellDef> Nombres </th>
-          <td mat-cell *matCellDef="let element"> {{element.nombres}} </td>
+          <th mat-header-cell *matHeaderCellDef class="tittle-th align-middle"> Nombres </th>
+          <td mat-cell *matCellDef="let element" class="align-middle"> {{element.nombres}} </td>
       </ng-container>
 
       <ng-container matColumnDef="direccion">
-          <th mat-header-cell *matHeaderCellDef> Direccion </th>
-          <td mat-cell *matCellDef="let element">{{element.direccion}}</td>
+          <th mat-header-cell *matHeaderCellDef class="tittle-th align-middle"> Direccion </th>
+          <td mat-cell *matCellDef="let element" class="align-middle">{{element.direccion}}</td>
       </ng-container>
 
       <ng-container matColumnDef="dni">
-          <th mat-header-cell *matHeaderCellDef>DNI</th>
-          <td mat-cell *matCellDef="let element"> {{element.dni}} </td>
+          <th mat-header-cell *matHeaderCellDef class="tittle-th align-middle">DNI</th>
+          <td mat-cell *matCellDef="let element" class="align-middle"> {{element.dni}} </td>
       </ng-container>
 
       <ng-container matColumnDef="email">
-        <th mat-header-cell *matHeaderCellDef>Email</th>
-        <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+        <th mat-header-cell *matHeaderCellDef class="tittle-th align-middle">Email</th>
+        <td mat-cell *matCellDef="let element" class="align-middle"> {{element.email}} </td>
     </ng-container>
 
       <ng-container matColumnDef="telefono">
-          <th mat-header-cell *matHeaderCellDef>Teléfono</th>
-          <td mat-cell *matCellDef="let element"> {{element.telefono}}
-            <div style="text-align: right;" >
-              <button  mat-raised-button color="warn">Eliminar</button>
-              <button mat-raised-button color="primary">Editar</button>
-            </div>
+          <th mat-header-cell *matHeaderCellDef class="tittle-th align-middle">Teléfono</th>
+          <td mat-cell *matCellDef="let element" class="align-middle"> {{element.telefono}}</td>
+        </ng-container>
+<!---->
+        <ng-container matColumnDef="acciones">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            class="tittle-th text-center align-middle"
+          >
+            Acciones
+          </th>
+          <td
+            mat-cell
+            *matCellDef="let element"
+            class="text-center align-middle"
+          >
+            <button
+              mat-raised-button
+              color="warn"
+              (click)="delete(element.idExamen, element.nombre_registro)"
+            >
+              Eliminar
+            </button>
+            &nbsp;
+            <app-modal-config>
+              <div tittle-content>
+                Editar Paciente: {{ element.nombre }}
+              </div>
+              <div class="modal-body" body-content>
+                <div class="w-100 p-4">
+                  <form
+                    class="px-4"
+                    [formGroup]="form"
+                    (ngSubmit)="update(element.idExamen)"
+                  >
+                    <div class="row">
+                      <mat-form-field>
+                        <input
+                          matInput
+                          required
+                          placeholder="Apellidos del paciente"
+                          autocomplete="off"
+                          formControlName="apellidos"
+                          value="{{ element.apellidos }}"
+                        />
+                      </mat-form-field>
+                    </div>
+
+                    <div class="row">
+                      <mat-form-field>
+                        <input
+                          matInput
+                          required
+                          placeholder="Nombre del paciente"
+                          autocomplete="off"
+                          formControlName="nombres"
+                          value="{{ element.nombres }}"
+                        />
+                      </mat-form-field>
+                    </div>
+
+                    <div class="row">
+                      <mat-form-field>
+                        <input
+                          matInput
+                          required
+                          placeholder="Dirección del paciente"
+                          autocomplete="off"
+                          formControlName="direccion"
+                          value="{{ element.direccion }}"
+                        />
+                      </mat-form-field>
+                    </div>
+
+                    <div class="row">
+                      <mat-form-field>
+                        <input
+                          matInput
+                          required
+                          placeholder="DNI del paciente"
+                          autocomplete="off"
+                          formControlName="dni"
+                          value="{{ element.dni }}"
+                        />
+                      </mat-form-field>
+                    </div>
+
+                    <div class="row">
+                      <mat-form-field>
+                        <input
+                          matInput
+                          required
+                          placeholder="Email del paciente"
+                          autocomplete="off"
+                          formControlName="email"
+                          value="{{ element.email }}"
+                        />
+                      </mat-form-field>
+                    </div>
+
+                    <div class="row">
+                      <mat-form-field>
+                        <input
+                          matInput
+                          required
+                          placeholder="Teléfono del paciente"
+                          autocomplete="off"
+                          formControlName="telefono"
+                          value="{{ element.telefono }}"
+                        />
+                      </mat-form-field>
+                    </div>
+
+                    <div class="row px-4 toolbar_formato">
+                      <button
+                        mat-raised-button
+                        color="primary"
+                        class="cpb w-50"
+                        type="submit"
+                      >
+                        Actualizar
+                      </button>
+                    </div>
+                  </form>
+                </div>
+                <p class="text-danger">Campos obligatorios*</p>
+              </div>
+              <div button-content>Editar</div>
+            </app-modal-config>]
           </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
       </table>
+      <div class="text-center" *ngIf="dataSource.length <= 0">
+        <h3>No hay pacientes registrados</h3>
+      </div>
     </div>
   </ng-template>
-
   <!-- ng else -->
   <ng-template [ngIf]="!view">
-    <div class="w-50 border p-4 border-5 rounded-2">
-      <h3 class="text-center">Registro de Pacientes</h3>
+    <div
+      class="w-50 border p-4 border-5 rounded-2 bg-light border-primary border-opacity-25 box-shadow-custom"
+    >
+      <h3 class="text-center">Registro de nuevo paciente</h3>
       <form class="px-4" [formGroup]="form" (ngSubmit)="created()">
-
-        <!--INPUT-->
-        <!-- <div class="row">
-          <mat-form-field>
-            <input
-              matInput
-              required
-              placeholder="ID Paciente"
-              autocomplete="off"
-              formControlName="id_paciente"
-            />
-          </mat-form-field>
-        </div> -->
-
         <div class="row">
           <mat-form-field>
             <input
               matInput
               required
-              placeholder="Apellidos"
+              placeholder="Apellidos del paciente"
               autocomplete="off"
               formControlName="apellidos"
             />
@@ -113,7 +228,7 @@
             <input
               matInput
               required
-              placeholder="Nombres"
+              placeholder="Nombre del paciente"
               autocomplete="off"
               formControlName="nombres"
             />
@@ -125,7 +240,7 @@
             <input
               matInput
               required
-              placeholder="Dirección"
+              placeholder="Dirección del paciente"
               autocomplete="off"
               formControlName="direccion"
             />
@@ -137,7 +252,7 @@
             <input
               matInput
               required
-              placeholder="DNI"
+              placeholder="DNI del paciente"
               autocomplete="off"
               formControlName="dni"
             />
@@ -149,7 +264,7 @@
             <input
               matInput
               required
-              placeholder="Email"
+              placeholder="Email del paciente"
               autocomplete="off"
               formControlName="email"
             />
@@ -161,23 +276,23 @@
             <input
               matInput
               required
-              placeholder="Teléfono"
+              placeholder="Teléfono del paciente"
               autocomplete="off"
               formControlName="telefono"
             />
           </mat-form-field>
         </div>
-
-          <div class="row px-4 toolbar_formato">
-            <button
-              mat-raised-button
-              color="primary"
-              class="cpb w-50"
-              type="submit"
-            >
+        
+        <div class="row px-4 toolbar_formato">
+          <button
+            mat-raised-button
+            color="primary"
+            class="cpb w-50"
+            type="submit"
+          >
             Agregrar
-            </button>
-          </div>
+          </button>
+       </div>
       </form>
     </div>
   </ng-template>
