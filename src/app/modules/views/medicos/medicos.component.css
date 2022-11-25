@@ -13,3 +13,13 @@ margin-top: 10px;
 {
   width: 50%;
 }
+.tittle-th {
+  font-size: 17px;
+}
+.mat-column-acciones {
+  width: 30% !important;
+
+}
+.table-especialidad {
+  border-radius: 10px;
+}

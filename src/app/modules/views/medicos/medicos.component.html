@@ -32,18 +32,106 @@
         class="table table-primary table-striped "
         mat-table
         [dataSource]="dataSource"
+        *ngIf="dataSource.length > 0"
       >
         <ng-container matColumnDef="id">
-          <th mat-header-cell *matHeaderCellDef> ID Médicos</th>
-          <td mat-cell *matCellDef="let element"> {{element.idMedico}} </td>
+          <th mat-header-cell *matHeaderCellDef class="title-th align-middle"> ID Médicos</th>
+          <td mat-cell *matCellDef="let element" class="align-middle"> {{element.idMedico}} </td>
         </ng-container>
 
         <ng-container matColumnDef="cmp">
-          <th mat-header-cell *matHeaderCellDef> CMP </th>
-          <td mat-cell *matCellDef="let element"> {{element.cmp}} </td>
+          <th mat-header-cell *matHeaderCellDef class="title-th align-middle"> CMP </th>
+          <td mat-cell *matCellDef="let element" class="align-middle">
+            {{element.cmp}}
+           </td>
         </ng-container>
 
-        <ng-container matColumnDef="apellidos">
+        <ng-container matColumnDef="acciones">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            class="tittle-th text-center align-middle"
+        >
+        Acciones
+      </th>
+      <td
+      mat-cell
+      *matCellDef="let element"
+      class="text-center align-middle"
+    >
+    <button
+    mat-raised-button
+    color="warn"
+    (click)="delete(element.medicos, element.nombre)"
+  >
+    Eliminar
+  </button>
+  &nbsp;
+  <app-modal-config>
+    <div tittle-content>
+      Editar la especialidad: {{ element.nombre }}
+    </div>
+    <div class="modal-body" body-content>
+      <div class="w-100 p-4">
+        <form
+        class="px-4"
+        [formGroup]="form"
+        (ngSubmit)="update(element.idMedicos)"
+      >
+      <div class="row">
+        <mat-form-field>
+          <input
+            matInput
+            required
+            placeholder="Nombre del medico"
+            autocomplete="off"
+            formControlName="nombre"
+            value="{{ element.nombre }}"
+          />
+        </mat-form-field>
+      </div>
+      <div class="row px-4 toolbar_formato">
+        <button
+          mat-raised-button
+          color="primary"
+          class="cpb w-50"
+          type="submit"
+        >
+          Actualizar
+        </button>
+      </div>
+    </form>
+  </div>
+  <p class="text-danger">Campos obligatorios*</p>
+  </div>
+  <div button-content>Editar</div>
+</app-modal-config>
+</td>
+</ng-container>
+  <!-- ng else -->
+  <ng-template [ngIf]="!view">
+    <div
+    class="w-50 border p-4 border-5 rounded-2 bg-light border-primary border-opacity-25 box-shadow-custom"
+  >
+  <h3 class="text-center">Registro de nueva especialidad</h3>
+      <form class="px-4" [formGroup]="form" (ngSubmit)="created()">
+        <div class="row">
+          <mat-form-field>
+            <input
+              matInput
+              required
+              placeholder="nombre del medico"
+              autocomplete="off"
+              formControlName="nombre"
+            />
+          </mat-form-field>
+
+
+
+
+
+
+            <ng-container matColumnDef="apellidos">
           <th mat-header-cell *matHeaderCellDef> Apellidos </th>
           <td mat-cell *matCellDef="let element"> {{element.apellidos}} </td>
         </ng-container>
