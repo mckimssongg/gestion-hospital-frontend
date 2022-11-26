@@ -110,6 +110,7 @@ export class MedicosComponent implements OnInit {
     this.cargandoData = true;
     this.medicoService.obtenerLista().subscribe({
       next: (data) => {
+        //set images a dataSource
         this.dataSource = data;
         const imagesRef = ref(this.storage, 'images');
         listAll(imagesRef)
@@ -118,15 +119,16 @@ export class MedicosComponent implements OnInit {
             for (let image of images.items) {
               const url = await getDownloadURL(image);
               this.images.push(url);
+              data.forEach((medico) => {
+                medico.foto = url.includes(medico.foto)
+                  ? url
+                  : '../../../assets/iconodoctor.png';
+              });
             }
+            this.dataSource = data;
           })
           .catch((error) => console.log(error))
           .finally(() => {
-            //set images a dataSource
-            this.dataSource.forEach((medico) => {
-              medico.foto = this.getOneImage(medico.foto);
-            });
-            console.log(this.dataSource);
             this.cargandoData = false;
           });
       },
