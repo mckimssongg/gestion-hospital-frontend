@@ -4,6 +4,13 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MedicosService } from 'src/app/services/medicos.service';
 import Swal from 'sweetalert2';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {
+  Storage,
+  ref,
+  uploadBytes,
+  listAll,
+  getDownloadURL,
+} from '@angular/fire/storage';
 
 @Component({
   selector: 'app-medicos',
@@ -21,19 +28,22 @@ export class MedicosComponent implements OnInit {
   ];
 
   images: string[] = [];
-
+  file: any;
+  imgRef: any;
   dataSource: Medicos[] = [];
+  cargandoData: boolean = false;
 
   form = new FormGroup({
-    cmp: new FormControl<number | null>(null),
-    apellidos: new FormControl<string>(''),
-    nombres: new FormControl<string>(''),
-    foto: new FormControl<string>(''),
+    cmp: new FormControl<number | null>(null, [Validators.required]),
+    apellidos: new FormControl<string>('', [Validators.required]),
+    nombres: new FormControl<string>('', [Validators.required]),
+    foto: new FormControl<string>('', [Validators.required]),
   });
 
   constructor(
     private medicoService: MedicosService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private storage: Storage
   ) {}
 
   public is_open_modal: boolean = false;
@@ -41,15 +51,60 @@ export class MedicosComponent implements OnInit {
 
   ngOnInit(): void {
     this.getMedicos();
-    this.obtenerImages();
+    this.getImages();
   }
 
-  obtenerImages() {
-    this.medicoService.getImages(this.images);
-  }
-  subirArchivo = (event: any) => {
-    this.medicoService.subirArchivo(event);
+  subirArchivo = ($event: any) => {
+    this.file = $event.target.files[0];
+    this.imgRef = ref(this.storage, `images/${this.file.name}`);
+    this.form.setValue({
+      cmp: this.form.value.cmp || null,
+      apellidos: this.form.value.apellidos || '',
+      nombres: this.form.value.nombres || '',
+      foto: this.file.name,
+    });
   };
+
+  subirCloud() {
+    uploadBytes(this.imgRef, this.file)
+      .then((x) => {
+        this.getImages();
+      })
+      .catch((error) => console.log(error));
+  }
+
+  getOneImage(image: string): string {
+    let imgURL = '';
+    this.images.forEach((img) => {
+      if (img.includes(image)) {
+        imgURL = img;
+      }
+    });
+    return imgURL;
+  }
+
+  getImages() {
+    this.cargandoData = true;
+    const imagesRef = ref(this.storage, 'images');
+    listAll(imagesRef)
+      .then(async (images) => {
+        this.images = [];
+        for (let image of images.items) {
+          const url = await getDownloadURL(image);
+          this.images.push(url);
+        }
+      })
+      .catch((error) => console.log(error))
+      .finally(() => {
+        //set images a dataSource
+        this.dataSource.forEach((medico) => {
+          medico.foto = this.getOneImage(medico.foto);
+        });
+        console.log(this.dataSource);
+        this.cargandoData = false;
+      });
+    this.cargandoData = false;
+  }
 
   getMedicos() {
     this.medicoService.obtenerLista().subscribe((data) => {
@@ -61,6 +116,8 @@ export class MedicosComponent implements OnInit {
   onChangeView() {
     this.view = !this.view;
     this.getMedicos();
+    this.getImages();
+    console.log(this.images);
   }
 
   initValuesForm(element: Medicos) {
@@ -74,6 +131,7 @@ export class MedicosComponent implements OnInit {
 
   created() {
     if (this.form.valid) {
+      this.subirCloud();
       this.medicoService
         .registrar(this.form.value as Medicos)
         .subscribe((data) => {

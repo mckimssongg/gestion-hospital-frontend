@@ -53,29 +53,4 @@ export class MedicosService {
   actualizar(id: number, obj: Medicos): Observable<Object> {
     return this.httpClient.put(`${baseUrl}medicos/${id}/`, obj);
   }
-
-  subirArchivo($event: any) {
-    const file = $event.target.files[0];
-    const imgRef = ref(this.storage, `images/${file.name}`);
-    console.log('......................', file, imgRef);
-    uploadBytes(imgRef, file)
-      .then((x) => {
-        this.getImages();
-      })
-      .catch((error) => console.log(error));
-  }
-
-  getImages(list_images: string[] = []) {
-    const imagesRef = ref(this.storage, 'images');
-
-    listAll(imagesRef)
-      .then(async (images) => {
-        list_images = [];
-        for (let image of images.items) {
-          const url = await getDownloadURL(image);
-          list_images.push(url);
-        }
-      })
-      .catch((error) => console.log(error));
-  }
 }
