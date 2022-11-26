@@ -1,3 +1,13 @@
 .posicion_botones {
     flex: auto;
   }
+
+.pointer-sytle{
+    cursor: pointer;
+
+}
+.mat-icon {
+  vertical-align: middle;
+  margin-bottom: 8px;
+}
+
