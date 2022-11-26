@@ -77,8 +77,8 @@
               [src]="element.fotoUrl || '../../../assets/iconodoctor.png'"
               alt="Foto"
               class="img-thumbnail"
-              width="50"
-              height="50"
+              width="70"
+              height="70"
             />
           </td>
         </ng-container>
@@ -99,19 +99,19 @@
             <button
               mat-raised-button
               color="warn"
-              (click)="delete(element.idMedico, element.nombre)"
+              (click)="delete(element.idMedico, element.nombres)"
             >
               Eliminar
             </button>
             &nbsp;
             <app-modal-config>
-              <div tittle-content>Editar médico: {{ element.nombre }}</div>
+              <div tittle-content>Editar médico: {{ element.nombres }}</div>
               <div class="modal-body" body-content>
                 <div class="w-100 p-4">
                   <form
                     class="px-4"
                     [formGroup]="form"
-                    (ngSubmit)="update(element.idMedicos)"
+                    (ngSubmit)="update(element.idMedico)"
                   >
                     <div class="row">
                       <mat-form-field>
