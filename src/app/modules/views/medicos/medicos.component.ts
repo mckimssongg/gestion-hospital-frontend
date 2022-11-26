@@ -51,7 +51,7 @@ export class MedicosComponent implements OnInit {
 
   ngOnInit(): void {
     this.getMedicos();
-    this.getImages();
+    // this.getImages();
   }
 
   subirArchivo = ($event: any) => {
@@ -68,7 +68,7 @@ export class MedicosComponent implements OnInit {
   subirCloud() {
     uploadBytes(this.imgRef, this.file)
       .then((x) => {
-        this.getImages();
+        this.getMedicos();
       })
       .catch((error) => console.log(error));
   }
@@ -107,17 +107,44 @@ export class MedicosComponent implements OnInit {
   }
 
   getMedicos() {
-    this.medicoService.obtenerLista().subscribe((data) => {
-      this.dataSource = data;
-      console.log(data);
+    this.cargandoData = true;
+    this.medicoService.obtenerLista().subscribe({
+      next: (data) => {
+        this.dataSource = data;
+        const imagesRef = ref(this.storage, 'images');
+        listAll(imagesRef)
+          .then(async (images) => {
+            this.images = [];
+            for (let image of images.items) {
+              const url = await getDownloadURL(image);
+              this.images.push(url);
+            }
+          })
+          .catch((error) => console.log(error))
+          .finally(() => {
+            //set images a dataSource
+            this.dataSource.forEach((medico) => {
+              medico.foto = this.getOneImage(medico.foto);
+            });
+            console.log(this.dataSource);
+            this.cargandoData = false;
+          });
+      },
+      error: (error) => {
+        console.log(error);
+      },
+      complete: () => {
+        this.modalService.dismissAll();
+        this.imgRef = null;
+        this.file = null;
+      },
     });
   }
 
   onChangeView() {
     this.view = !this.view;
     this.getMedicos();
-    this.getImages();
-    console.log(this.images);
+    // this.getImages();
   }
 
   initValuesForm(element: Medicos) {
