@@ -138,6 +138,7 @@ export class MedicosComponent implements OnInit {
           Swal.fire('Registro guardado', '', 'success');
           this.getMedicos();
         });
+
       this.form.reset();
     }
   }
@@ -145,6 +146,7 @@ export class MedicosComponent implements OnInit {
   update(id: number) {
     if (this.form.valid) {
       let obj_Medico = this.form.value as Medicos;
+      this.subirCloud();
       obj_Medico.idMedico = id;
       this.medicoService.actualizar(id, obj_Medico).subscribe({
         next: (data) => {
@@ -157,6 +159,8 @@ export class MedicosComponent implements OnInit {
         },
         complete: () => {
           this.modalService.dismissAll();
+          this.imgRef = null;
+          this.file = null;
         },
       });
       this.form.reset();
