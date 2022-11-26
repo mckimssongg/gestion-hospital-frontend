@@ -10,9 +10,18 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   templateUrl: './medicos.component.html',
   styleUrls: ['./medicos.component.css'],
 })
-export class MedicosComponent implements OnInit{
-  displayedColumns: string[] = ['idMedico', 'cmp', 'apellidos', 'nombres', 'foto', "acciones"];
-  
+export class MedicosComponent implements OnInit {
+  displayedColumns: string[] = [
+    'idMedico',
+    'cmp',
+    'apellidos',
+    'nombres',
+    'foto',
+    'acciones',
+  ];
+
+  images: string[] = [];
+
   dataSource: Medicos[] = [];
 
   form = new FormGroup({
@@ -20,8 +29,7 @@ export class MedicosComponent implements OnInit{
     apellidos: new FormControl<string>(''),
     nombres: new FormControl<string>(''),
     foto: new FormControl<string>(''),
-    });  
-  
+  });
 
   constructor(
     private medicoService: MedicosService,
@@ -33,7 +41,15 @@ export class MedicosComponent implements OnInit{
 
   ngOnInit(): void {
     this.getMedicos();
+    this.obtenerImages();
   }
+
+  obtenerImages() {
+    this.medicoService.getImages(this.images);
+  }
+  subirArchivo = (event: any) => {
+    this.medicoService.subirArchivo(event);
+  };
 
   getMedicos() {
     this.medicoService.obtenerLista().subscribe((data) => {
@@ -52,7 +68,7 @@ export class MedicosComponent implements OnInit{
       cmp: element.cmp,
       apellidos: element.apellidos,
       nombres: element.nombres,
-      foto: element.foto
+      foto: element.foto,
     });
   }
 
@@ -77,7 +93,7 @@ export class MedicosComponent implements OnInit{
           Swal.fire('Registro actualizado', '', 'success');
           this.getMedicos();
         },
-        error:(error) => {
+        error: (error) => {
           Swal.fire('Error', '', 'error');
           console.log(error);
         },
@@ -132,4 +148,4 @@ export class MedicosComponent implements OnInit{
       });
   }
 }
-//_________________________________________________ 
+//_________________________________________________

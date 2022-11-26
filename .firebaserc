@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "storage-hospital": {
+      "hosting": {
+        "gestion_hospital": [
+          "storage-hospital"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "storage-hospital"
+  }
+}

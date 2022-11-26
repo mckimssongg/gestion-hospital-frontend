@@ -28,7 +28,6 @@
               "src/assets"
             ],
             "styles": [
-
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.scss"
             ],
@@ -100,9 +99,18 @@
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.scss"
-
             ],
             "scripts": []
+          }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "gestion_hospital:build:production",
+            "firebaseProject": "storage-hospital",
+            "firebaseHostingSite": "storage-hospital"
           }
         }
       }

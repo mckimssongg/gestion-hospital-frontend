@@ -10,7 +10,6 @@ import {
 } from '../interfaces';
 import { baseUrlPro as baseUrl } from './index';
 
-
 @Injectable({
   providedIn: 'root',
 })

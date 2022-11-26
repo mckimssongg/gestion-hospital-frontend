@@ -15,6 +15,8 @@ import { SharedModule } from './modules/shared/shared.module';
 //INICIAR SECIÓN
 import { LoginComponent } from './modules/login/login.component';
 import { SwalAlertComponent } from './modules/components/swal-alert/swal-alert.component';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { provideStorage, getStorage } from '@angular/fire/storage';
 
 @NgModule({
   declarations: [AppComponent, LoginComponent, SwalAlertComponent],
@@ -28,6 +30,8 @@ import { SwalAlertComponent } from './modules/components/swal-alert/swal-alert.c
     }),
     BrowserAnimationsModule,
     SharedModule,
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideStorage(() => getStorage()),
   ],
 
   providers: [],
