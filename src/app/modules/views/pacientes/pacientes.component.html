@@ -83,7 +83,7 @@
             <button
               mat-raised-button
               color="warn"
-              (click)="delete(element.idPaciente, element.nombre)"
+              (click)="delete(element.idPaciente, element.nombres.concat(' ', element.apellidos))"
             >
               Eliminar
             </button>
@@ -107,7 +107,6 @@
                           placeholder="Apellidos del paciente"
                           autocomplete="off"
                           formControlName="apellidos"
-                          value="{{ element.apellidos }}"
                         />
                       </mat-form-field>
                     </div>
@@ -120,7 +119,6 @@
                           placeholder="Nombre del paciente"
                           autocomplete="off"
                           formControlName="nombres"
-                          value="{{ element.nombres }}"
                         />
                       </mat-form-field>
                     </div>
@@ -133,7 +131,6 @@
                           placeholder="Dirección del paciente"
                           autocomplete="off"
                           formControlName="direccion"
-                          value="{{ element.direccion }}"
                         />
                       </mat-form-field>
                     </div>
@@ -146,7 +143,6 @@
                           placeholder="DNI del paciente"
                           autocomplete="off"
                           formControlName="dni"
-                          value="{{ element.dni }}"
                         />
                       </mat-form-field>
                     </div>
@@ -159,7 +155,7 @@
                           placeholder="Email del paciente"
                           autocomplete="off"
                           formControlName="email"
-                          value="{{ element.email }}"
+                          type="email"
                         />
                       </mat-form-field>
                     </div>
@@ -172,7 +168,6 @@
                           placeholder="Teléfono del paciente"
                           autocomplete="off"
                           formControlName="telefono"
-                          value="{{ element.telefono }}"
                         />
                       </mat-form-field>
                     </div>
@@ -191,8 +186,8 @@
                 </div>
                 <p class="text-danger">Campos obligatorios*</p>
               </div>
-              <div button-content>Editar</div>
-            </app-modal-config>]
+              <div button-content  (click)="initValuesForm(element)">Editar</div>
+            </app-modal-config>
           </td>
         </ng-container>
 
@@ -283,7 +278,7 @@
             />
           </mat-form-field>
         </div>
-        
+
         <div class="row px-4 toolbar_formato">
           <button
             mat-raised-button

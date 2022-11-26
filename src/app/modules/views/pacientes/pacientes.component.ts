@@ -1,6 +1,11 @@
-import { Component,OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Pacientes } from 'src/app/interfaces/pacientes';
-import { FormControl, FormGroup } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  FormBuilder,
+  Validators,
+} from '@angular/forms';
 import { PacienteService } from 'src/app/services/paciente.service';
 import Swal from 'sweetalert2';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -18,28 +23,36 @@ export class PacientesComponent implements OnInit {
     'dni',
     'email',
     'telefono',
-    "acciones"
+    'acciones',
   ];
 
-  dataSource: Pacientes[]=[];
+  dataSource: Pacientes[] = [];
 
   form = new FormGroup({
-    apellidos: new FormControl<string>(''),
-    nombres: new FormControl<string>(''),
-    direccion: new FormControl<string>(''),
-    dni: new FormControl<number | null>(null),
-    email: new FormControl<string>(''),
-    telefono: new FormControl<number | null>(null),
+    apellidos: new FormControl<string>('', [Validators.required]),
+    nombres: new FormControl<string>('', [Validators.required]),
+    direccion: new FormControl<string>('', [Validators.required]),
+    dni: new FormControl<number | null>(null, [
+      Validators.required,
+      Validators.minLength(8),
+      Validators.maxLength(8),
+    ]),
+    email: new FormControl<string>('', [Validators.required, Validators.email]),
+    telefono: new FormControl<number | null>(null, [
+      Validators.required,
+      Validators.minLength(9),
+      Validators.maxLength(9),
+    ]),
   });
 
-  constructor( 
+  constructor(
     private pacienteService: PacienteService,
     private modalService: NgbModal
-  ){}
+  ) {}
 
   public is_open_modal: boolean = false;
   public view: boolean = false;
-  
+
   ngOnInit(): void {
     this.getPacientes();
   }
@@ -56,12 +69,23 @@ export class PacientesComponent implements OnInit {
     this.getPacientes();
   }
 
+  initValuesForm(element: Pacientes) {
+    this.form.setValue({
+      apellidos: element.apellidos,
+      nombres: element.nombres,
+      direccion: element.direccion,
+      dni: element.dni,
+      email: element.email,
+      telefono: element.telefono,
+    });
+  }
+
   created() {
     if (this.form.valid) {
       this.pacienteService
         .registrar(this.form.value as Pacientes)
         .subscribe((data) => {
-          console.log()
+          console.log();
           Swal.fire('Registro guardado', '', 'success');
           this.getPacientes();
         });
@@ -72,7 +96,7 @@ export class PacientesComponent implements OnInit {
   update(id: number) {
     if (this.form.valid) {
       let obj_Pacientes = this.form.value as Pacientes;
-      obj_Pacientes.idPaciente= id;
+      obj_Pacientes.idPaciente = id;
       this.pacienteService.actualizar(id, obj_Pacientes).subscribe({
         next: (data) => {
           Swal.fire('Registro actualizado', '', 'success');
