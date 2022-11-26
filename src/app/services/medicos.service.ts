@@ -33,4 +33,24 @@ export class MedicosService {
   obtenerLista(): Observable<Medicos[]> {
     return this.httpClient.get<Medicos[]>(`${baseUrl}medicos/`);
   }
+
+  /**
+   * @param empleado Especialidades
+   * @returns Observable<Object>
+   * @description Crea un nuevo empleado
+   * @example
+   * {
+   * id_especialidad: number,
+   * nombre: string
+   * }
+   */
+   registrar(obj: Medicos): Observable<Object> {
+    return this.httpClient.post(`${baseUrl}medicos/`, obj);
+  }
+  eliminar(id: number): Observable<Object> {
+    return this.httpClient.delete(`${baseUrl}medicos/${id}`);
+  }
+  actualizar(id: number, obj: Medicos): Observable<Object> {
+    return this.httpClient.put(`${baseUrl}medicos/${id}/`, obj);
+  }
 }

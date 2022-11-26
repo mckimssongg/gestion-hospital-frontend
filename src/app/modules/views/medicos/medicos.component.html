@@ -1,4 +1,3 @@
-<!-- Will-->
 <div class="toolbar_formato">
   <mat-toolbar>
     <span>Médicos</span>
@@ -24,18 +23,17 @@
     </button>
   </mat-toolbar>
 
-<!--Tabla(para mientras)-->
   <br />
   <ng-template [ngIf]="view">
     <div class="w-75">
       <table
-        class="table table-primary table-striped "
+        class="table-especialidad table table-primary table-hover table-striped rounded rounded-2 overflow-hidden box-shadow-custom"
         mat-table
         [dataSource]="dataSource"
         *ngIf="dataSource.length > 0"
       >
-        <ng-container matColumnDef="id">
-          <th mat-header-cell *matHeaderCellDef class="title-th align-middle"> ID Médicos</th>
+        <ng-container matColumnDef="idMedico">
+          <th mat-header-cell *matHeaderCellDef class="title-th align-middle"> ID Médico</th>
           <td mat-cell *matCellDef="let element" class="align-middle"> {{element.idMedico}} </td>
         </ng-container>
 
@@ -46,193 +44,206 @@
            </td>
         </ng-container>
 
+        <ng-container matColumnDef="apellidos">
+          <th mat-header-cell *matHeaderCellDef class="title-th align-middle"> Apellidos </th>
+          <td mat-cell *matCellDef="let element" class="align-middle">
+            {{element.apellidos}}
+           </td>
+        </ng-container>
+
+        <ng-container matColumnDef="nombres">
+          <th mat-header-cell *matHeaderCellDef class="title-th align-middle"> Nombres </th>
+          <td mat-cell *matCellDef="let element" class="align-middle">
+            {{element.nombres}}
+           </td>
+        </ng-container>
+
+        <ng-container matColumnDef="foto">
+          <th mat-header-cell *matHeaderCellDef class="title-th align-middle"> Foto </th>
+          <td mat-cell *matCellDef="let element" class="align-middle">
+            {{element.foto}}
+           </td>
+        </ng-container>
+
         <ng-container matColumnDef="acciones">
           <th
             mat-header-cell
             *matHeaderCellDef
             class="tittle-th text-center align-middle"
-        >
-        Acciones
-      </th>
-      <td
-      mat-cell
-      *matCellDef="let element"
-      class="text-center align-middle"
-    >
-    <button
-    mat-raised-button
-    color="warn"
-    (click)="delete(element.medicos, element.nombre)"
-  >
-    Eliminar
-  </button>
-  &nbsp;
-  <app-modal-config>
-    <div tittle-content>
-      Editar la especialidad: {{ element.nombre }}
-    </div>
-    <div class="modal-body" body-content>
-      <div class="w-100 p-4">
-        <form
-        class="px-4"
-        [formGroup]="form"
-        (ngSubmit)="update(element.idMedicos)"
-      >
-      <div class="row">
-        <mat-form-field>
-          <input
-            matInput
-            required
-            placeholder="Nombre del medico"
-            autocomplete="off"
-            formControlName="nombre"
-            value="{{ element.nombre }}"
-          />
-        </mat-form-field>
-      </div>
-      <div class="row px-4 toolbar_formato">
-        <button
-          mat-raised-button
-          color="primary"
-          class="cpb w-50"
-          type="submit"
-        >
-          Actualizar
-        </button>
-      </div>
-    </form>
-  </div>
-  <p class="text-danger">Campos obligatorios*</p>
-  </div>
-  <div button-content>Editar</div>
-</app-modal-config>
-</td>
-</ng-container>
-  <!-- ng else -->
-  <ng-template [ngIf]="!view">
-    <div
-    class="w-50 border p-4 border-5 rounded-2 bg-light border-primary border-opacity-25 box-shadow-custom"
-  >
-  <h3 class="text-center">Registro de nueva especialidad</h3>
-      <form class="px-4" [formGroup]="form" (ngSubmit)="created()">
-        <div class="row">
-          <mat-form-field>
-            <input
-              matInput
-              required
-              placeholder="nombre del medico"
-              autocomplete="off"
-              formControlName="nombre"
-            />
-          </mat-form-field>
-
-
-
-
-
-
-            <ng-container matColumnDef="apellidos">
-          <th mat-header-cell *matHeaderCellDef> Apellidos </th>
-          <td mat-cell *matCellDef="let element"> {{element.apellidos}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="nombres">
-          <th mat-header-cell *matHeaderCellDef> Nombres </th>
-          <td mat-cell *matCellDef="let element">{{element.nombres}}</td>
-        </ng-container>
-
-        <ng-container matColumnDef="foto">
-          <th mat-header-cell *matHeaderCellDef> Foto URL </th>
-          <td mat-cell *matCellDef="let element"> {{element.foto}}
-            <div style="text-align: right;" >
-              <button  mat-raised-button color="warn">Eliminar</button>
-              <button mat-raised-button color="primary">Editar</button>
-            </div>
-          </td>
-        </ng-container>
-
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-      </table>
-    </div>
-  </ng-template>
-  <!-- ng else -->
-  <ng-template [ngIf]="!view">
-    <div class="w-50 border p-4 border-5 rounded-2">
-      <h3 class="text-center">Registro de  Médicos</h3>
-      <form class="px-4" [formGroup]="form" (ngSubmit)="created()">
-        <!--INPUT-->
-        <div class="row">
-          <mat-form-field>
-            <input
-              matInput
-              required
-              placeholder="Id Médico"
-              autocomplete="off"
-              formControlName="id"
-            />
-          </mat-form-field>
-        </div>
-
-        <div class="row">
-          <mat-form-field>
-            <input
-              matInput
-              required
-              placeholder="CMP"
-              autocomplete="off"
-              formControlName="cmp"
-            />
-          </mat-form-field>
-        </div>
-
-        <div class="row">
-          <mat-form-field>
-            <input
-              matInput
-              required
-              placeholder="Apellidos"
-              autocomplete="off"
-              formControlName="apellidos"
-            />
-          </mat-form-field>
-        </div>
-
-        <div class="row">
-          <mat-form-field>
-            <input
-              matInput
-              required
-              placeholder="Nombres"
-              autocomplete="off"
-              formControlName="nombres"
-            />
-          </mat-form-field>
-        </div>
-
-        <div class="row">
-          <mat-form-field>
-            <input
-              matInput
-              required
-              placeholder="FOTO AQUI"
-              autocomplete="off"
-              formControlName="foto"
-            />
-          </mat-form-field>
-        </div>
-
-        <div class="row px-4 toolbar_formato">
-          <button
-            mat-raised-button
-            color="primary"
-            class="cpb w-50"
-            type="submit"
           >
-            Agregrar
+          Acciones
+          </th>
+          <td
+            mat-cell
+            *matCellDef="let element"
+            class="text-center align-middle"
+          >
+            <button
+            mat-raised-button
+            color="warn"
+            (click)="delete(element.idMedico, element.nombre)"
+          >
+            Eliminar
           </button>
+          &nbsp;
+          <app-modal-config>
+            <div tittle-content>
+              Editar médico: {{ element.nombre }}
+            </div>
+            <div class="modal-body" body-content>
+              <div class="w-100 p-4">
+                <form
+                class="px-4"
+                [formGroup]="form"
+                (ngSubmit)="update(element.idMedicos)"
+              >
+                <div class="row">
+                  <mat-form-field>
+                    <input
+                      matInput
+                      required
+                      placeholder="CMP del médico"
+                      autocomplete="off"
+                      formControlName="cmp"
+                      value="{{ element.cmp }}"
+                    />
+                  </mat-form-field>
+                </div>
+
+                <div class="row">
+                  <mat-form-field>
+                    <input
+                      matInput
+                      required
+                      placeholder="Apellidos del médico"
+                      autocomplete="off"
+                      formControlName="apellidos"
+                      value="{{ element.apellidos }}"
+                    />
+                  </mat-form-field>
+                </div>
+
+                <div class="row">
+                  <mat-form-field>
+                    <input
+                      matInput
+                      required
+                      placeholder="Nombres del médico"
+                      autocomplete="off"
+                      formControlName="nombres"
+                      value="{{ element.nombres }}"
+                    />
+                  </mat-form-field>
+                </div>
+
+                <div class="row">
+                  <mat-form-field>
+                    <input
+                      matInput
+                      required
+                      placeholder="Fotografía del médico"
+                      autocomplete="off"
+                      formControlName="foto"
+                      value="{{ element.foto }}"
+                    />
+                  </mat-form-field>
+                </div>
+
+                <div class="row px-4 toolbar_formato">
+                  <button
+                    mat-raised-button
+                    color="primary"
+                    class="cpb w-50"
+                    type="submit"
+                    >
+                      Actualizar
+                    </button>
+                  </div>
+                </form>
+              </div>
+              <p class="text-danger">Campos obligatorios*</p>
+              </div>
+              <div button-content>Editar</div>
+            </app-modal-config>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+
+        <div class="text-center" *ngIf="dataSource.length <= 0">
+          <h3>No hay médicos registrados</h3>
         </div>
-      </form>
-    </div>
-  </ng-template>
+      </div>
+    </ng-template>
+    <!-- ng else -->
+    <ng-template [ngIf]="!view">
+      <div
+        class="w-50 border p-4 border-5 rounded-2 bg-light border-primary border-opacity-25 box-shadow-custom"
+      >
+        <h3 class="text-center">Registro de nuevo médico</h3>
+        <form class="px-4" [formGroup]="form" (ngSubmit)="created()">
+
+          <div class="row">
+            <mat-form-field>
+              <input
+                matInput
+                required
+                placeholder="CMP"
+                autocomplete="off"
+                formControlName="cmp"
+              />
+            </mat-form-field>
+          </div>
+
+          <div class="row">
+            <mat-form-field>
+              <input
+                matInput
+                required
+                placeholder="Apellidos"
+                autocomplete="off"
+                formControlName="apellidos"
+              />
+            </mat-form-field>
+          </div>
+
+          <div class="row">
+            <mat-form-field>
+              <input
+                matInput
+                required
+                placeholder="Nombres"
+                autocomplete="off"
+                formControlName="nombres"
+              />
+            </mat-form-field>
+          </div>
+
+          <div class="row">
+            <mat-form-field>
+              <input
+                matInput
+                required
+                placeholder="foto"
+                autocomplete="off"
+                formControlName="foto"
+              />
+            </mat-form-field>
+          </div>
+
+          <div class="row px-4 toolbar_formato">
+            <button
+              mat-raised-button
+              color="primary"
+              class="cpb w-50"
+              type="submit"
+            >
+              Agregrar
+            </button>
+         </div>
+        </form>
+      </div>
+    </ng-template>
 </div>
