@@ -74,7 +74,7 @@ export class ConsultasComponent implements OnInit, OnChanges {
 
   onChangeView() {
     this.view = !this.view;
-    this.getAllData();
+    // this.getAllData();
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -107,5 +107,35 @@ export class ConsultasComponent implements OnInit, OnChanges {
       });
       this.form.reset();
     }
+  }
+
+  // para testear
+  created2() {
+    if (this.form.valid) {
+      let fecha_formatea = this.format(this.form.value.fecha as string);
+      let obj_consulta: Consultas = this.form.value as Consultas;
+      obj_consulta.fecha = fecha_formatea;
+      let list_consulta = [...this.dataSource, obj_consulta];
+      this.dataSource = list_consulta;
+      this.form.reset();
+    }
+  }
+  delete(id: number) {
+    Swal.fire({
+      title: '¿Estas seguro?',
+      text: 'No podras revertir esta acción',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, eliminar!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        let lista_consultas = this.dataSource.filter(
+          (item) => item.id_consulta != id
+        );
+        this.dataSource = lista_consultas;
+      }
+    });
   }
 }

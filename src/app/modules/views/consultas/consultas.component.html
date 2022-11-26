@@ -94,11 +94,12 @@
             &nbsp;
             <app-modal-config>
               <div tittle-content>
-                Editar la especialidad: {{ element.nombre }}
+                Editar la consulta {{ element.id }}
               </div>
               <div class="modal-body" body-content>
                 <div class="w-100 p-4">
                   <form class="px-4" [formGroup]="form">
+
                     <div class="row">
                       <mat-form-field>
                         <input
@@ -111,6 +112,7 @@
                         />
                       </mat-form-field>
                     </div>
+
                     <div class="row px-4 toolbar_formato">
                       <button
                         mat-raised-button
@@ -148,7 +150,7 @@
       class="w-50 border p-4 border-5 rounded-2 bg-light border-primary border-opacity-25 box-shadow-custom"
     >
       <h3 class="text-center">Registro de Consultas</h3>
-      <form class="px-4" [formGroup]="form" (ngSubmit)="created()">
+      <form class="px-4" [formGroup]="form" (ngSubmit)="created2()">
         <!--INPUT-->
 
         <div class="row d-flex">

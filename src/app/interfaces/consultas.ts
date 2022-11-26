@@ -5,4 +5,7 @@ export interface Consultas {
   id_especialidad: number;
   id_medico: number;
   id_paciente: number;
+  especialidad?: string;
+  medico?: string;
+  paciente?: string;
 }
