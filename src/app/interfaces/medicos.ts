@@ -3,5 +3,5 @@ export interface Medicos {
   cmp: number;
   apellidos: string;
   nombres: string;
-  foto: string;
+  fotoUrl: any;
 }
