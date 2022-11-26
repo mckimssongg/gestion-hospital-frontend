@@ -1,6 +1,6 @@
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component,OnInit} from '@angular/core';
 import { Pacientes } from 'src/app/interfaces/pacientes';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { PacienteService } from 'src/app/services/paciente.service';
 import Swal from 'sweetalert2';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -11,16 +11,17 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class PacientesComponent implements OnInit {
   displayedColumns: string[] = [
-    'id_paciente',
+    'idPaciente',
     'apellidos',
     'nombres',
     'direccion',
     'dni',
     'email',
-    'telefono'
+    'telefono',
+    "acciones"
   ];
 
-  dataSource: Pacientes[]=[]
+  dataSource: Pacientes[]=[];
 
   form = new FormGroup({
     apellidos: new FormControl<string>(''),
@@ -88,7 +89,7 @@ export class PacientesComponent implements OnInit {
       this.form.reset();
     }
   }
-  delete(idPaciente: number, nombre_registro: string) {
+  delete(id_registro: number, nombre_registro: string) {
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
         confirmButton: 'btn btn-primary mx-2',
@@ -109,7 +110,7 @@ export class PacientesComponent implements OnInit {
       })
       .then((result) => {
         if (result.isConfirmed) {
-          this.pacienteService.eliminar(idPaciente).subscribe({
+          this.pacienteService.eliminar(id_registro).subscribe({
             next: (data) => {
               this.getPacientes();
               swalWithBootstrapButtons.fire(
