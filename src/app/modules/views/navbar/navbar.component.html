@@ -1,11 +1,14 @@
 <mat-toolbar color="primary">
   <div routerLink="/inicio" class="pointer-sytle">
     <mat-icon>medical_information</mat-icon>
+    &nbsp;
     <span>Hospital Los Ángeles</span>
   </div>
   <span class="posicion_botones"></span>
   <!--Interactivo sub grupos-->
   <button mat-button *ngFor="let item of menu" [routerLink]="item.redirect">
+    <mat-icon>{{ item.icon }}</mat-icon>
+    &nbsp;
     {{ item.nombre }}
   </button>
   <span class="posicion_botones"></span>

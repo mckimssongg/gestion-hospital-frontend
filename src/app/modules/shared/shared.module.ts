@@ -21,6 +21,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 // NG BOOTSTRAP
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ModalConfigComponent } from '../components/modal-config/modal-config.component';
+import { NgChartsModule } from 'ng2-charts';
 @NgModule({
   declarations: [ModalConfigComponent],
   imports: [
@@ -42,6 +43,7 @@ import { ModalConfigComponent } from '../components/modal-config/modal-config.co
     MatSelectModule,
     MatCheckboxModule,
     MatOptionModule,
+    NgChartsModule,
   ],
   exports: [
     CommonModule,
@@ -62,6 +64,7 @@ import { ModalConfigComponent } from '../components/modal-config/modal-config.co
     MatSelectModule,
     MatCheckboxModule,
     MatOptionModule,
+    NgChartsModule,
   ],
   bootstrap: [ModalConfigComponent],
   providers: [MatDatepickerModule],

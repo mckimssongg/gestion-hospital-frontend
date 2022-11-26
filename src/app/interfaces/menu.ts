@@ -1,5 +1,5 @@
-export interface Menu
-{
-    nombre: string;
-    redirect: string;
+export interface Menu {
+  nombre: string;
+  redirect: string;
+  icon: string;
 }

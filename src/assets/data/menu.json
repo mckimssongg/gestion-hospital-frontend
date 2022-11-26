@@ -1,22 +1,27 @@
 [
     {
         "nombre": "Médicos",
-        "redirect": "/inicio/medicos"
+        "redirect": "/inicio/medicos",
+        "icon": "medical_services"
     },
     {
         "nombre": "Pacientes",
-        "redirect": "/inicio/pacientes"
+        "redirect": "/inicio/pacientes",
+        "icon": "person_add"
     },
     {
         "nombre": "Laboratorios",
-        "redirect": "/inicio/laboratorios"
+        "redirect": "/inicio/laboratorios",
+        "icon": "folder_shared"
     },
     {
         "nombre": "Especialidades",
-        "redirect": "/inicio/especialidades"
+        "redirect": "/inicio/especialidades",
+        "icon": "playlist_add_check"
     },
     {
         "nombre": "Consultas",
-        "redirect": "/inicio/consultas"
+        "redirect": "/inicio/consultas",
+        "icon": "checklist"
     }
 ]
