@@ -42,6 +42,13 @@ export class LaboratoriosComponent implements OnInit{
     this.getLaboratorios();
   }
 
+  initValuesForm(element: Laboratorios) {
+    this.form.setValue({
+      descripcion: element.descripcion,
+      nombre: element.nombre
+    });
+  }
+
   created() {
     if (this.form.valid) {
       this.laboratoriosService

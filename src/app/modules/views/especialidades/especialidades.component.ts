@@ -1,4 +1,4 @@
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Especialidades } from 'src/app/interfaces/especialidades';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { EspecialidadesService } from 'src/app/services/especialidades.service';
@@ -41,6 +41,12 @@ export class EspecialidadesComponent implements OnInit {
   onChangeView() {
     this.view = !this.view;
     this.getEspecialidades();
+  }
+
+  initValuesForm(element: Especialidades) {
+    this.form.setValue({
+      nombre: element.nombre
+    });
   }
 
   created() {

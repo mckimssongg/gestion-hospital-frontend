@@ -47,6 +47,15 @@ export class MedicosComponent implements OnInit{
     this.getMedicos();
   }
 
+  initValuesForm(element: Medicos) {
+    this.form.setValue({
+      cmp: element.cmp,
+      apellidos: element.apellidos,
+      nombres: element.nombres,
+      foto: element.foto
+    });
+  }
+
   created() {
     if (this.form.valid) {
       this.medicoService
